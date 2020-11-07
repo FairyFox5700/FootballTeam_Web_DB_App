@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballProject.Entities
 {
-    public abstract class Persons
+    public abstract class Person
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

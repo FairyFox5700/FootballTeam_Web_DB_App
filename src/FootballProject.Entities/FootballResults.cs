@@ -18,10 +18,10 @@ namespace FootballProject.Entities
         [ForeignKey(nameof(FootballerId))]
         public int FootballerId { get; set; }
 
-        public Cards Card { get; set; }
-        public Footballers Footballer { get; set; }
-        public Matches Match { get; set; }
-        public Scores Score { get; set; }
+        public Card Card { get; set; }
+        public Footballer Footballer { get; set; }
+        public Match Match { get; set; }
+        public Score Score { get; set; }
         
        
     }

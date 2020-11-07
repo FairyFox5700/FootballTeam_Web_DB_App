@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballProject.Entities
 {
-    public class Addresses
+    public class Address
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,6 +14,6 @@ namespace FootballProject.Entities
         public string Country { get; set; }
         public string StateProvince { get; set; }
         
-        public  Stadiums Stadiums { get; set; }
+        public  Stadium Stadium { get; set; }
     }
 }

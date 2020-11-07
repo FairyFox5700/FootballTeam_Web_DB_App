@@ -13,7 +13,7 @@ namespace FootballProject.Entities
         [ForeignKey(nameof(SponsorId))]
         public int SponsorId { get; set; }
 
-        public FootballClubs Club { get; set; }
-        public  Sponsores Sponsor { get; set; }
+        public FootballClub Club { get; set; }
+        public  Sponsor Sponsor { get; set; }
     }
 }

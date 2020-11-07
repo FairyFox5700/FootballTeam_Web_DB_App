@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballProject.Entities
 {
-    public class Footballers
+    public class Coach
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,12 +16,10 @@ namespace FootballProject.Entities
         public string Nationality { get; set; }
         public DateTime DataOfBirth { get; set; }
         public string PlaceOfBirth { get; set; }
-        public decimal Height { get; set; }
-        public decimal Weight { get; set; }
-        [ForeignKey(nameof(RoleId))]
-        public int? RoleId { get; set; }
-
-        public Roles Role { get; set; }
-        public ICollection<FootballResults> FootballResults { get; set; }
+        public int CountOfVictories { get; set; }
+        public int YearsOfExpirience { get; set; }
+        [ForeignKey(nameof(ClubId))]
+        public int ClubId { get; set; }
+        public ICollection<Training> Trainings { get; set; }
     }
 }

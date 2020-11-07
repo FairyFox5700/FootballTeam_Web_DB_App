@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballProject.Entities
 {
-    public class Logos
+    public class Logo
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -13,6 +13,6 @@ namespace FootballProject.Entities
         [ForeignKey(nameof(ClubId))]
         public int ClubId { get; set; }
 
-        public FootballClubs Club { get; set; }
+        public FootballClub Club { get; set; }
     }
 }

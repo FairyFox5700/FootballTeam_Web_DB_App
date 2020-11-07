@@ -4,15 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballProject.Entities
 {
-    public class FootballClubs
+    public  class Season
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int FootballClubId { get; set; }
-        public string FootballClubName { get; set; }
+        public int SeasonId { get; set; }
+        public string LeagueName { get; set; }
 
         public ICollection<FootballClubsSeasones> FootballClubsSeasones { get; set; }
-        public ICollection<Logos> Logos { get; set; }
-        public ICollection<SponsoresClubs> SponsoresClubs { get; set; }
     }
 }

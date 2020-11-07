@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballProject.Entities
 {
-    public class Sponsores
+    public class Sponsor
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

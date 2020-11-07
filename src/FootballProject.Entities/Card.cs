@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballProject.Entities
 {
-    public class Cards
+    public class Card
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballProject.Entities
 {
-    public class Stadiums
+    public class Stadium
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,8 +16,8 @@ namespace FootballProject.Entities
         [ForeignKey(nameof(AddressId))]
         public int AddressId { get; set; }
 
-        public Addresses Address { get; set; }
-        public ICollection<Matches> Matches { get; set; }
-        public ICollection<Trainings> Trainings { get; set; }
+        public Address Address { get; set; }
+        public ICollection<Match> Matches { get; set; }
+        public ICollection<Training> Trainings { get; set; }
     }
 }

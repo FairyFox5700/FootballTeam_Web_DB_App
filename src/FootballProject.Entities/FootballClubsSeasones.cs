@@ -13,7 +13,7 @@ namespace FootballProject.Entities
         [ForeignKey(nameof(SeasonId))]
         public int SeasonId { get; set; }
         
-        public FootballClubs Club { get; set; }
-        public Seasones Season { get; set; }
+        public FootballClub Club { get; set; }
+        public Season Season { get; set; }
     }
 }
