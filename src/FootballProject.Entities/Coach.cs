@@ -20,6 +20,7 @@ namespace FootballProject.Entities
         public int YearsOfExpirience { get; set; }
         [ForeignKey(nameof(ClubId))]
         public int ClubId { get; set; }
+        public  ICollection<FootballClub> FootballClubs  { get; set; }
         public ICollection<Training> Trainings { get; set; }
     }
 }
