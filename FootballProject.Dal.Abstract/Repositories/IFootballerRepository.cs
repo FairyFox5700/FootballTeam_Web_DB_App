@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FootballProject.Entities;
 
 namespace FootballProject.Dal.Abstract.Repositories
 {
     public interface IFootballerRepository<in TKey> where TKey: struct
     {
-        IEnumerable<Footballer> GetFootballers();
-        IEnumerable<Footballer> GetFootballersBySearch(string search);
-        Footballer GetFootballerById(TKey footballerId);
-        bool FootballerExists(TKey footballerId);
+        Task<IEnumerable<Footballer>> GetFootballers();
+        Task<IEnumerable<Footballer>> GetFootballersWithRoles();
+        Task<IEnumerable<Footballer>> GetFootballersByRoleName(string role);
+        Task<IEnumerable<Footballer>> GetFootballersByNameSurnameNationality(string name = "", string surname = "", string nationality = "");
+        Task<Footballer> GetFootballerById(int footballerId);
+        Task<IEnumerable<Footballer>> GetFootballersOrdered(string search, bool @ascending = true);
     }
 }
