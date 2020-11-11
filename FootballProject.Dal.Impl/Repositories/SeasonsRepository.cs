@@ -9,11 +9,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace FootballProject.Dal.Impl.Repositories
 {
-    public class SeasonesRepository:ISeasonesRepository<int>
+    public class SeasonsRepository:ISeasonesRepository<int>
     {
         private string _connectionString;
 
-        public SeasonesRepository(IConfiguration configuration)
+        public SeasonsRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }

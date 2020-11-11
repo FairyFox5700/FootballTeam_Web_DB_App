@@ -10,7 +10,7 @@ namespace FootballProject.Dal.Abstract.Repositories
         Task<IEnumerable<Footballer>> GetFootballersWithRoles();
         Task<IEnumerable<Footballer>> GetFootballersByRoleName(string role);
         Task<IEnumerable<Footballer>> GetFootballersByNameSurnameNationality(string name = "", string surname = "", string nationality = "");
-        Task<Footballer> GetFootballerById(int footballerId);
+        Task<Footballer> GetFootballerById(TKey footballerId);
         Task<IEnumerable<Footballer>> GetFootballersOrdered(string search, bool @ascending = true);
     }
 }

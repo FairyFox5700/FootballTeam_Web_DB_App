@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace FootballProject.Dal.Impl.Repositories
 {
-
     public class FootballClubRepository:IFootballerClubsRepository<int>
     {
         private string _connectionString;
@@ -50,8 +49,7 @@ namespace FootballProject.Dal.Impl.Repositories
             var query = @"EXEC public.get_footballers_club_by_id_with_details @clubId = @ClubId";
             var footballClubsDictionary = new Dictionary<int, FootballClub>();
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
+            await using var connection = new SqlConnection(_connectionString);
                 connection.Open();
                 return await connection.QueryAsync<FootballClub, Logo, FootballClub>(
                     query,
@@ -74,13 +72,11 @@ namespace FootballProject.Dal.Impl.Repositories
                     },
                     splitOn: "FootballClubId"
                 );
-            }
         }
 
         public async Task<IEnumerable<FootballClub>> GetFootballClubsByPlayerId(int playerId)
         {
             var query = @"EXEC public.get_all_football_clubs_by_player_id @playerId= @PlayerId";
-            var footballClubsDictionary = new Dictionary<int, FootballClub>();
             await using var connection = new SqlConnection(_connectionString);
             connection.Open();
             return await connection.QueryAsync<FootballClub>(
