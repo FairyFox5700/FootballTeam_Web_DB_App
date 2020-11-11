@@ -79,7 +79,7 @@ namespace FootballProject.Dal.Impl.Repositories
         {
             var sql = "SELECT person_id, first_name, middle_name, nationality, data_of_birth, place_of_birth, height, weight " +
                       "FROM public.footballers" +
-                      "WHERE UserId= @footballerId;";
+                      "WHERE PersonId= @footballerId;";
             await using var connection = new SqlConnection(_connectionString);
             connection.Open();
             var result = await connection.QueryAsync<Footballer>(sql, new { Id = footballerId });
