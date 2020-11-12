@@ -16,6 +16,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballProject.Entities", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballProject.Models", "src\FootballProject.Models\FootballProject.Models.csproj", "{808974A0-4A4E-4CF8-AD60-8D819B839839}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLScripts", "SQLScripts", "{3D21A4BC-26AF-4A7C-8CF9-18148EE5B6BD}"
+ProjectSection(SolutionItems) = preProject
+	src\SqlScripts\01-Tables.sql = src\SqlScripts\01-Tables.sql
+	src\SqlScripts\02-Sprocs.sql = src\SqlScripts\02-Sprocs.sql
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
