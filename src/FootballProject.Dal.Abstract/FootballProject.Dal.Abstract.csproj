@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\FootballProject.Entities\FootballProject.Entities.csproj" />
       <ProjectReference Include="..\src\FootballProject.Entities\FootballProject.Entities.csproj" />
     </ItemGroup>
 

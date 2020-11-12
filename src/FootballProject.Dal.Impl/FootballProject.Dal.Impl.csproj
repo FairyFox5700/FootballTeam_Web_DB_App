@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FootballProject.Dal.Abstract\FootballProject.Dal.Abstract.csproj" />
+      <ProjectReference Include="..\FootballProject.Entities\FootballProject.Entities.csproj" />
       <ProjectReference Include="..\src\FootballProject.Entities\FootballProject.Entities.csproj" />
     </ItemGroup>
 
