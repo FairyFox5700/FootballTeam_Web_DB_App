@@ -1,4 +1,6 @@
-﻿namespace FootballProject.Entities.Requests
+﻿using FootballProject.Entities;
+
+namespace FootballProject.Models.Responses
 {
     public class  FootballerByRoleCountModel:Footballer
     {

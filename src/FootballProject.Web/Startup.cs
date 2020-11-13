@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
-using DbUp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using VMD.RESTApiResponseWrapper.Core;
+using VMD.RESTApiResponseWrapper.Core.Extensions;
 
 namespace FootballProject.Web
 {
@@ -26,10 +28,11 @@ namespace FootballProject.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var controllersAssembly = Assembly.Load("FootballProject.Web.Controllers");
             services.AddControllers();
-                var connectionString =
-                    Configuration.GetConnectionString("DefaultConnection");
-                EnsureDatabase.For.SqlDatabase(connectionString);
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+                //TODO add scripts to run migrations
+                /*EnsureDatabase.For.SqlDatabase(connectionString);
                 var upgrader = DeployChanges.To
                     .SqlDatabase(connectionString, null)
                     .WithScriptsEmbeddedInAssembly(
@@ -37,12 +40,12 @@ namespace FootballProject.Web
                     )
                     .WithTransaction()
                     .Build();
+                    
                 if (upgrader.IsUpgradeRequired())
                 {
                     upgrader.PerformUpgrade();
                 }
-
-
+                */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,9 +56,10 @@ namespace FootballProject.Web
                 app.UseDeveloperExceptionPage();
             }
 
-
+          
             app.UseRouting();
 
+            app.UseApiResponseAndExceptionWrapper();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

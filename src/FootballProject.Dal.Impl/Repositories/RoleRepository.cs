@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Dapper;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
-using FootballProject.Entities.Requests;
+using FootballProject.Models.Responses;
 using Microsoft.Extensions.Configuration;
 
 namespace FootballProject.Dal.Impl.Repositories

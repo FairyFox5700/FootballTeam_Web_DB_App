@@ -17,7 +17,7 @@ namespace FootballProject.Dal.Impl.Repositories
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
-        public async Task<IEnumerable<Sponsor>> GetSponsoresById(int clubId)
+        public async Task<IEnumerable<Sponsor>> GetSponsoresByClubId(int clubId)
         {
             var query = @"EXEC public.get_all_sponsores_by_club_id @clubId  = @ClubId";
             await using var connection = new SqlConnection(_connectionString);

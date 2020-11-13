@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using FootballProject.Dal.Abstract.Repositories;
@@ -44,14 +45,14 @@ namespace FootballProject.Dal.Impl.Repositories
 
   
         //TODO return coach name
-        public async Task<IEnumerable<FootballClub>> GetFootballClubsById(int clubId)
+        public async Task<FootballClub> GetFootballClubsById(int clubId)
         {
             var query = @"EXEC public.get_footballers_club_by_id_with_details @clubId = @ClubId";
             var footballClubsDictionary = new Dictionary<int, FootballClub>();
 
             await using var connection = new SqlConnection(_connectionString);
                 connection.Open();
-                return await connection.QueryAsync<FootballClub, Logo, FootballClub>(
+                var result =  await connection.QueryAsync<FootballClub, Logo, FootballClub>(
                     query,
                     map: (fc, l) =>
                     {
@@ -72,6 +73,7 @@ namespace FootballProject.Dal.Impl.Repositories
                     },
                     splitOn: "FootballClubId"
                 );
+                return result.FirstOrDefault();
         }
 
         public async Task<IEnumerable<FootballClub>> GetFootballClubsByPlayerId(int playerId)

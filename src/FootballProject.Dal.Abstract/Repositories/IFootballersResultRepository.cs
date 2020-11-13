@@ -6,8 +6,7 @@ namespace FootballProject.Dal.Abstract.Repositories
 {
     public interface IFootballersResultRepository<in TKey> where TKey: struct
     {
-        Task<IEnumerable<FootballResults>> GetFootballResultsByMatchId(int matchId);
+        Task<IEnumerable<FootballResults>> GetFootballResultsByMatchId(TKey matchId);
         Task<IEnumerable<FootballResults>> GetFootballerResultsByPlayersIdOrderedBy(TKey playerId, string orderBy);
-
     }
 }
