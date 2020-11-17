@@ -17,17 +17,17 @@ namespace FootballProject.Web.Controllers
             _trainingRepository = trainingRepository;
         }
 
-        //GET api/trainings?coachId={coachId}
+        //GET api/trainings/coach/{coachId}
         [HttpGet]
-        [Route("coachId={coachId}")]
-        public async Task<IEnumerable<Training>>  GetAllTrainingByCoachId(int coachId)
+        [Route("coach/{coachId}")]
+        public async Task<IEnumerable<Training>>  GetAllTrainingByCoachId([FromRoute]int coachId)
         {
             return await _trainingRepository.GetAllTrainingByCoachId(coachId);
         }
         
-        //GET api/trainings?trainingId={trainingId}
+        //GET api/trainings/{trainingId}
         [HttpGet]
-        [Route("trainingId={trainingId}")]
+        [Route("{trainingId}")]
         public async Task<Training>  GetTrainingByTrainingId(int trainingId)
         {
             return await _trainingRepository.GetTrainingByTrainingId(trainingId);

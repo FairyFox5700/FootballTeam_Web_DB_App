@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using FootballProject.Entities;
+using FootballProject.Models.Responses;
 
 namespace FootballProject.Dal.Abstract.Repositories
 {

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
+using FootballProject.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FootballProject.Web.Controllers
@@ -17,8 +18,9 @@ namespace FootballProject.Web.Controllers
             _coachRepository = coachRepository;
         }
 
-        //GET api/coaches?coachId={coachId}
+        //GET api/coaches/{coachId}
         [HttpGet]
+        [Route("{coachId}")]
         public async Task<IEnumerable<Coach>> GetAllCoachesById(int coachId)
         {
             return await _coachRepository.GetCoachesWithClubsById(coachId);

@@ -24,17 +24,17 @@ namespace FootballProject.Web.Controllers
             return await _matchesRepository.GetAllMatches();
         }
         
-        //GET api/matches?matchId={matchId}
+        //GET api/matches/{matchId}
         [HttpGet]
-        [Route("matchId={matchId}")]
+        [Route("{matchId}")]
         public async  Task<Match> GetAllMatches(int matchId)
         {
             return await _matchesRepository.GetMatchByMatchId(matchId);
         }
         
-        //GET api/nextMatches
+        //GET api/matches/next
         [HttpGet]
-        [Route("nextMatches")]
+        [Route("next")]
         public async Task<IEnumerable<Match>> GetNextMatches()
         {
             return await _matchesRepository.GetNextMatches();

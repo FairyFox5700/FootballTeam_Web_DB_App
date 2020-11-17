@@ -17,10 +17,10 @@ namespace FootballProject.Web.Controllers
             _stadiumsRepository = stadiumsRepository;
         }
 
-        //GET api/sponsores?stadiumId={stadiumId}
+        //GET api/stadiums/{stadiumId}
         [HttpGet]
-        [Route("stadiumId={stadiumId}")]
-        public async Task<Stadium>  GetSponsoresByClubId(int stadiumId)
+        [Route("{stadiumId}")]
+        public async Task<Stadium>  GetSponsoresByClubId([FromRoute]int stadiumId)
         {
             return await _stadiumsRepository.GetStadiumByIdWithAddresses(stadiumId);
         }

@@ -2,9 +2,10 @@
 
 namespace FootballProject.Models.Responses
 {
-    public class  FootballerByRoleCountModel:Footballer
+    public class  FootballerByRoleCountModel
     {
+        public int RoleId { get; set; }
+        public  string RoleName { get; set; }
         public int FootballersCount { get; set; }
-
     }
 }

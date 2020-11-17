@@ -1,10 +1,12 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace FootballProject.Dal.Impl.Repositories
 {
@@ -19,20 +21,22 @@ namespace FootballProject.Dal.Impl.Repositories
    
         public async Task<Stadium> GetStadiumByIdWithAddresses(int stadiumId)
         {
-            await using var connection = new SqlConnection(_connectionString);
+            await using var connection =  new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
-            var query = @"EXEC public.get_stadium_by_stadium_Id_with_address @stadiumId = @StadiumId";
+            var query = @"public.get_stadium_by_stadium_Id_with_address";
             var results = await connection.QueryAsync<Stadium,Address,Stadium>(query,
                 (s, a) =>
                 {
                     s.Address = a;
                     return s;
                 },
-                splitOn: "StadiumId",
+                splitOn:"address_id",
                 param: new
                 {
-                    StadiumId= stadiumId,
-                }
+                    stadiumid= stadiumId,
+                },
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900
             );
             return results.FirstOrDefault();
         }
