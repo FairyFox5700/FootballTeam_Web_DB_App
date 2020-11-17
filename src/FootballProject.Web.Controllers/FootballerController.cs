@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
 using FootballProject.Models.Requests;
+using FootballProject.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FootballProject.Web.Controllers
@@ -26,24 +27,25 @@ namespace FootballProject.Web.Controllers
             return await _footballerRepository.GetFootballers();
         }
         
-        //GET api/footballer/footballersWithRoles
+        //GET api/footballer/roles
         [HttpGet]
-        [Route("footballersWithRoles")]
+        [Route("roles")]
         public async Task<IEnumerable<Footballer>> GetFootballersWithRoles()
         {
             return await _footballerRepository.GetFootballersWithRoles();
         }
         
-        //GET api/footballer/{name}
+        //GET api/footballer/name/{name}
         [HttpGet]
-        [Route("{name}")]
-        public async Task<IEnumerable<Footballer>> GetAllFootballer(string roleName)
+        [Route("name/{roleName}")]
+        public async Task<IEnumerable<Footballer>> GetAllFootballer([FromRoute]string roleName)
         {
             return await _footballerRepository.GetFootballersByRoleName(roleName);
         }
         
         //GET api/footballer/?name={name}&surname={surname}&nationality={nationality}
         [HttpGet]
+        [Route("filter")]
         public async Task<IEnumerable<Footballer>> GetAllFootballers([FromQuery]FootballerRequestModel footballerRequestModel)
         {
             return await _footballerRepository.GetFootballersByNameSurnameNationality(
@@ -52,18 +54,18 @@ namespace FootballProject.Web.Controllers
                 footballerRequestModel.Nationality);
         }
         
-        //GET api/footballer/?{footballerId}
+        //GET api/footballer/{footballerId}
         [HttpGet]
-        [Route("{footballerId:int}")]
-        public async Task<Footballer> GetFootballerById(int footballerId)
+        [Route("{footballerId}")]
+        public async Task<Footballer> GetFootballerById([FromRoute]int footballerId)
         {
             return await _footballerRepository.GetFootballerById(footballerId);
         }
       
-        //GET api/footballer/?{name}&{surname}&{nationality}
+        //GET api/footballer/order/?{name}&{surname}&{nationality}
         [HttpGet]
-        [Route("search={search}&asc={ascending}")]
-        public async Task<IEnumerable<Footballer>> GetAllFootballer(string search, bool ascending)
+        [Route("order/search")]
+        public async Task<IEnumerable<Footballer>> GetAllFootballer([FromQuery]string search, [FromQuery]bool ascending)
         {
             return await _footballerRepository.GetFootballersOrdered(search,ascending);
         }

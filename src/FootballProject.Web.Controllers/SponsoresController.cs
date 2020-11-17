@@ -17,18 +17,18 @@ namespace FootballProject.Web.Controllers
             _sponsoresRepository = sponsoresRepository;
         }
         
-        //GET api/sponsores?clubId={clubId}
+        //GET api/sponsores/club/{clubId}
         [HttpGet]
-        [Route("clubId={clubId}")]
+        [Route("club/{clubId}")]
         public async  Task<IEnumerable<Sponsor>>  GetSponsoresByClubId(int clubId)
         {
             return await _sponsoresRepository.GetSponsoresByClubId(clubId);
         }
         
-        //GET api/sponsores?sponsorId={sponsorId}
+        //GET api/sponsores/{sponsorId}
         [HttpGet]
-        [Route("sponsorId={sponsorId}")]
-        public async  Task<Sponsor>  GetSponsorById(int sponsorId)
+        [Route("{sponsorId}")]
+        public async  Task<Sponsor>  GetSponsorById([FromRoute]int sponsorId)
         {
             return await _sponsoresRepository.GetSponsorById(sponsorId);
         }

@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
+using FootballProject.Models.Responses;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace FootballProject.Dal.Impl.Repositories
 {
@@ -16,46 +19,38 @@ namespace FootballProject.Dal.Impl.Repositories
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
+        //one to one not binding
        
-        public async Task<IEnumerable<FootballResults>> GetFootballResultsByMatchId(int matchId)
+        public async Task<IEnumerable<FootballResultsResponse>> GetFootballResultsByMatchId(int matchId)
         {
-            await using var connection = new SqlConnection(_connectionString);
+            await using var connection =  new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
-            var query = @"EXEC public.get_football_results_by_match_id @matchId = @MatchId";
-            var results = await connection.QueryAsync<FootballResults,Card,Score,FootballResults>(query,
-                (f, c,s) =>
-                {
-                    f.Score = s;
-                    f.Card = c;
-                    return f;
-                },
-                splitOn: "ResultId",
+            var query = "get_football_results_by_match_id";
+            var results = await connection.QueryAsync<FootballResultsResponse>(
+                query,
                 param: new
                 {
-                    MatchId= matchId,
-                }
+                    matchid= matchId,
+                },
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900
             );
             return results;
         }
 
-        public async Task<IEnumerable<FootballResults>> GetFootballerResultsByPlayersIdOrderedBy(int playerId, string orderBy)
+        public async Task<IEnumerable<FootballResultsResponse>> GetFootballerResultsByPlayersIdOrderedBy(int playerId, string orderBy)
         {
-            await using var connection = new SqlConnection(_connectionString);
+            await using var connection =  new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
-            var query = @"EXEC public.get_all_football_results_by_player_id_order_by @playerId = @PlayerId, @orderBy= @OrderBy";
-            var results = await connection.QueryAsync<FootballResults,Card,Score,FootballResults>(query,
-                (f, c,s) =>
-                {
-                    f.Score = s;
-                    f.Card = c;
-                    return f;
-                },
-                splitOn: "ResultId",
+            var query = @"get_all_football_results_by_player_id_order_by";
+            var results = await connection.QueryAsync<FootballResultsResponse>(query,
                 param: new
                 {
-                    PlayerId= playerId,
-                    OrderBy = orderBy
-                }
+                    playerid= playerId,
+                    orderby = orderBy
+                },
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900
             );
             return results;
         }

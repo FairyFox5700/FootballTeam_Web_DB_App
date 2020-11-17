@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
 using FootballProject.Models.Responses;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace FootballProject.Dal.Impl.Repositories
 {
@@ -21,12 +23,14 @@ namespace FootballProject.Dal.Impl.Repositories
 
         public async Task<IEnumerable<FootballerByRoleCountModel>> GetFootballersCountByRoleName(string roleName)
         {
-            await using var connection = new SqlConnection(_connectionString);
+            await using var connection =  new NpgsqlConnection(_connectionString);
             connection.Open();
             return await connection.QueryAsync<FootballerByRoleCountModel>(
-                @"EXEC public.count_footballers_by_role_name @roleName = @RoleName",
+                @"public.count_footballers_by_role_name",
            param:
-                new { RoleName = roleName }
+                new { rolename = roleName },
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900
             );
         }
     }

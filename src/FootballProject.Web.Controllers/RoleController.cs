@@ -17,9 +17,9 @@ namespace FootballProject.Web.Controllers
             _roleRepository = roleRepository;
         }
         
-        //GET api/roles?roleName={roleName}
+        //GET api/roles/{roleName}
         [HttpGet]
-        [Route("roleName={roleName}")]
+        [Route("{roleName}")]
         public async  Task<IEnumerable<FootballerByRoleCountModel>> GetAllMatches(string roleName)
         {
             return await _roleRepository.GetFootballersCountByRoleName(roleName);

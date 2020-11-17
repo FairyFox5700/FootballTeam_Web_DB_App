@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
+using FootballProject.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FootballProject.Web.Controllers
@@ -17,17 +18,17 @@ namespace FootballProject.Web.Controllers
             _footballersResultRepository = footballersResultRepository;
         }
         
-        //GET api/footballersResults?matchId={matchId}
+        //GET api/footballersResults/match/{matchId}
         [HttpGet]
-        [Route("matchId={matchId}")]
-        public async Task<IEnumerable<FootballResults>> GetFootballResultsByMatchId(int matchId)
+        [Route("match/{matchId}")]
+        public async Task<IEnumerable<FootballResultsResponse>> GetFootballResultsByMatchId([FromRoute]int matchId)
         {
             return await _footballersResultRepository.GetFootballResultsByMatchId(matchId);
         }
-        //GET api/footballersResults?playerId={playerId}
+        //GET api/footballersResults/player/?player={playerId}&orderBy={orderBy}
         [HttpGet]
-        [Route("playerId={playerId}&orderBy={orderBy}")]
-        public async Task<IEnumerable<FootballResults>> GetFootballerResultsByPlayersIdOrderedBy(int playerId, string orderBy)
+        [Route("player")]
+        public async Task<IEnumerable<FootballResultsResponse>> GetFootballerResultsByPlayersIdOrderedBy([FromQuery]int playerId, [FromQuery]string orderBy)
         {
             return await _footballersResultRepository.GetFootballerResultsByPlayersIdOrderedBy(playerId,orderBy);
         }

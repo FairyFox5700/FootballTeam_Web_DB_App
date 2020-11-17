@@ -2,12 +2,14 @@
 using System.Threading.Tasks;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
+using FootballProject.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace FootballProject.Web.Controllers
 {
     [ApiController]
-    [Route("api/footballClubs")]
+    [Route("api/footballClub")]
     public class FootballClubController : ControllerBase
     {
         private readonly IFootballerClubsRepository<int> _footballerClubsRepository;
@@ -25,18 +27,18 @@ namespace FootballProject.Web.Controllers
         }
 
 
-        //GET api/footballClub?clubId={footballerClubId}
+        //GET api/footballClub/{footballerClubId}
         [HttpGet]
-        [Route("clubId={footballerClubId}")]
-        public async Task<FootballClub> GetFootballClubsById(int footballerClubId)
+        [Route("{footballerClubId}")]
+        public async Task<FootballClub> GetFootballClubsById([FromRoute]int footballerClubId)
         {
             return await _footballerClubsRepository.GetFootballClubsById(footballerClubId);
         }
 
-        //GET api/footballClub?playerId={playerId}
+        //GET api/footballClub/player/{playerId}
         [HttpGet]
-        [Route("playerId={playerId}")]
-        public async Task<IEnumerable<FootballClub>> GetFootballClubsWithLogos(int playerId)
+        [Route("player/{playerId}")]
+        public async Task<IEnumerable<FootballClub>> GetFootballClubsWithLogos([FromRoute]int playerId)
         {
             return await _footballerClubsRepository.GetFootballClubsByPlayerId(playerId);
         }

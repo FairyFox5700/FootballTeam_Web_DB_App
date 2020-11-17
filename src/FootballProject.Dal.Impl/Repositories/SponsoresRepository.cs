@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Dapper;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace FootballProject.Dal.Impl.Repositories
 {
@@ -19,29 +21,34 @@ namespace FootballProject.Dal.Impl.Repositories
         }
         public async Task<IEnumerable<Sponsor>> GetSponsoresByClubId(int clubId)
         {
-            var query = @"EXEC public.get_all_sponsores_by_club_id @clubId  = @ClubId";
-            await using var connection = new SqlConnection(_connectionString);
+            var query = @"public.get_all_sponsores_by_club_id";
+            await using var connection =  new NpgsqlConnection(_connectionString);
             connection.Open();
             return await connection.QueryAsync<Sponsor>(
                 query,
                 param: new
                 {
-                    ClubId=clubId
-                });
+                    clubid=clubId
+                },
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900);
         }
 
+        //TODO handle error
         public async Task<Sponsor> GetSponsorById(int sponsorId)
         {
-            var query = @"EXEC public.get_sponore_by_id @sponsoreId = @SponsorId";
-            await using var connection = new SqlConnection(_connectionString);
+            var query = @"public.get_sponore_by_id";
+            await using var connection =  new NpgsqlConnection(_connectionString);
             connection.Open();
             var result = await connection.QueryAsync<Sponsor>(
                 query,
                 param: new
                 {
-                    SponsorId= sponsorId
-                });
-            return result.FirstOrDefault();
+                    sponsoreid= sponsorId
+                },
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900);
+            return result?.FirstOrDefault();
         }
     }
 }

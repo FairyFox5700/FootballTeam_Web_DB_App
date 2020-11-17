@@ -15,7 +15,6 @@ namespace FootballProject.Entities
         public DateTime MatchDate { get; set; }
         [ForeignKey(nameof(StadiumId))]
         public int StadiumId { get; set; }
-
         public Stadium Stadium { get; set; }
         public ICollection<FootballResults> FootballResults { get; set; }
     }

@@ -17,17 +17,18 @@ namespace FootballProject.Web.Controllers
             _seasonesRepository = seasonesRepository;
         }
         
-        //GET api/seasons?clubId={clubId}
+        //GET api/seasons/club/{clubId}
         [HttpGet]
-        [Route("clubId={clubId}")]
-        public async  Task<IEnumerable<Season>>  GetSeasonesByClubsId(int clubId)
+        [Route("club/{clubId}")]
+        public async  Task<IEnumerable<Season>>  GetSeasonesByClubsId([FromRoute]int clubId)
         {
             return await _seasonesRepository.GetSeasonesByClubsId(clubId);
         }
         
-        //GET api/roles?seasonId={seasonId}
+        //TODO catch error
+        //GET api/seasons/{seasonId}
         [HttpGet]
-        [Route("seasonId={seasonId}")]
+        [Route("{seasonId}")]
         public async  Task<Season>   GetSeasonById(int seasonId)
         {
             return await _seasonesRepository.GetSeasonById(seasonId);
