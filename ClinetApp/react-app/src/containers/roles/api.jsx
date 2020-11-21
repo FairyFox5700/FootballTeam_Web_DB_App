@@ -6,7 +6,8 @@ export default {
 
     roles(url = baseUrl + 'roles/') {
         return {
-            fetchAllByName:(roleName) => axios.get(url+roleName)
+            fetchAllByName:(roleName) => axios.get(url+roleName),
+            fetchAll:()=>axios.get(url)
         }
     }
 }

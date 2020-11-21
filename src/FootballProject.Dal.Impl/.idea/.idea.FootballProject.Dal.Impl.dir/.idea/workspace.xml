@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c9b5befd-1799-425c-bd56-6cc557a57b19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/ReduxDispatcher.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/Utils/authHelper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/App.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/App.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/about/about.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/clubs/footballClubsAction.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/clubs/footballClubsConstants.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/clubs/footballClubsList.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/clubs/footballClubsReducer.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/header/header.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/header/headerActions.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/header/headerConstants.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/containers/header/headerReducer.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/index.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/routes/route.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ClinetApp/react-app/src/store/configureStore.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/.idea.FootballProject/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/.idea.FootballProject/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/.idea.FootballProject/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/.idea.FootballProject/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FootballProject.Web/FootballProject.Web.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../FootballProject.Web/FootballProject.Web.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FootballProject.Web/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../FootballProject.Web/Startup.cs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1kU2HBEiYB2sp9MpuKEFypW2I5y" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c9b5befd-1799-425c-bd56-6cc557a57b19" name="Default Changelist" comment="" />
+      <created>1605740760848</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605740760848</updated>
+      <workItem from="1605740783874" duration="115000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

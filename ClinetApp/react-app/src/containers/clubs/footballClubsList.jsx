@@ -25,29 +25,7 @@ const styles = theme => ({
             props.fetchAllFootBallClubs()
         }, [])
 
-        //toast msg.
         const { addToast } = useToasts()
-    /*constructor(props) {
-        super(props);
-        this.state = { query: "" };
-    }*/
-
- /*   componentDidMount() {
-        this.props.fetchAllFootBallClubs();
-    }//
-    
-   /* componentWillMount() {
-        this.props.fetchAllFootBallClubs();
-    }*/
-
-   /* componentWillReceiveProps(nextProps) {
-        if (this.state.query !== location.search) {
-            this.setState({ query: location.search });
-            this.props.fetchAllFootBallClubs();
-        }
-    }*/
-    
-
         return (
             <Paper className={classes.paper} elevation={3}>
                 <Grid container>
@@ -64,7 +42,7 @@ const styles = theme => ({
                                 <TableBody>
                                     {
                                         props.clubs.map((record) => {
-                                            const base64String =convertBlobToBase64(record.logos[0].image);
+                                            const base64String =atob(record.logos[0].image);
                                             return (<TableRow key={record.footballClubId} hover>
                                                     <TableCell>{record.footballClubId}</TableCell>
                                                     <TableCell>{record.footballClubName}</TableCell>
@@ -72,7 +50,7 @@ const styles = theme => ({
                                                         <img
                                                             style={{ height: 'auto', maxWidth: '100px' }}
                                                             alt={`${record.logos[0].imageName}`}
-                                                            src={`data:image/png;base64,${base64String}`}
+                                                            src={`${base64String}`}
                                                         ></img>
                                                     </TableCell>
                                                 </TableRow>
@@ -88,16 +66,6 @@ const styles = theme => ({
     );
 }
 
-const convertBlobToBase64 = (blob) => new Promise((resolve, reject) => {
-    const reader = new FileReader;
-    reader.onerror = reject;
-    reader.onload = () => {
-        resolve(reader.result);
-    };
-    reader.readAsDataURL(blob);
-});
-
-
 const mapStateToProps = state => ({
     clubs: state.clubs.clubs,
 })
@@ -106,8 +74,6 @@ const mapDispatchToProp = {
     fetchAllFootBallClubs: actions.fetchAll,
 }
 
-//https://habr.com/ru/post/350298/
-//withStyles(styles)
 export default connect(mapStateToProps, mapDispatchToProp)(withStyles(styles)(ClubList));
 
 

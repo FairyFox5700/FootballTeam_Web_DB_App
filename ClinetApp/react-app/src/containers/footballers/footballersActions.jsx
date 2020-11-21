@@ -43,7 +43,7 @@ export const fetchAll = () => dispatch => {
         });
 }
 
-export const fetchAllByMatchId= (playerId) => dispatch => {
+export const fetchById= (playerId) => dispatch => {
     api.footballers().fetchById(playerId)
         .then(response => {
             dispatch({

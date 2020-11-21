@@ -5,16 +5,21 @@ import { Provider } from "react-redux";
 import ClubList from '../containers/clubs/footballClubsList';
 import { Container } from "@material-ui/core";
 import { ToastProvider } from "react-toast-notifications";
+import Header from "./header/header";
+import Routing from "../routes/route";
+import {BrowserRouter} from "react-router-dom";
 
 function App() {
-    console.log('I was triggered during render')
     return (
         <Provider store={store}>
+            <BrowserRouter>
             <ToastProvider autoDismiss={true}>
                 <Container maxWidth="lg">
-                    <ClubList />
+                    <Header/>
+                    <Routing />
                 </Container>
             </ToastProvider>
+            </BrowserRouter>
         </Provider>
     );
 }
@@ -49,6 +54,5 @@ class App extends Component {
         );
     }
 }
-
 export default App;
 */
