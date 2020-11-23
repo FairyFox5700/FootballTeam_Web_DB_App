@@ -6,7 +6,7 @@
 } from "./seasonesConstants";
 
 const INITIAL_STATE = {
-    season: null,
+    season: {},
     seasons:[],
     statusCodeClass: ''
 }
@@ -14,11 +14,13 @@ const INITIAL_STATE = {
 export const seasones =(state = INITIAL_STATE, action)=> {
     console.log(action.type)
     console.log(action.payload);
+    
     switch (action.type) {
         case FETCH_SEASONS_BY_ID_SUCCESS:
+            
             return {
                 ...state,
-                season: [...action.payload] ,
+                seasons: [...action.payload] ,
                 statusCodeClass: 'ok'
             }
         case FETCH_SEASONS_BY_ID_ERROR :
@@ -28,9 +30,14 @@ export const seasones =(state = INITIAL_STATE, action)=> {
                 statusCodeClass: 'error'
             }
         case FETCH_SEASONS_BY_CLUBID_SUCCESS :
+            let sesn;
+            if(!Array.isArray(action.payload))
+            {
+                sesn= [action.payload]
+            }
             return {
                 ...state,
-                seasons:  [...action.payload] ,
+                seasons:  sesn ,
                 statusCodeClass: 'ok'
             }
         case FETCH_SEASONS_BY_CLUBID_ERROR:

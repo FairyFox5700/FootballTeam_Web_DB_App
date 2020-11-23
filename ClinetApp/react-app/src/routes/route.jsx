@@ -13,6 +13,10 @@ import FootballResultTable from "../containers/footballerResults/footballResults
 import FootballersList from "../containers/footballers/footballersWithRolesList";
 import FootballerDetails from "../containers/footballers/footballersDetails"
 import TrainingsList from "../containers/trainings/trainingsList"
+import FootballersGrid from "../containers/footballers/footballersGrid";
+import SponsorsList from "../containers/sponsores/sponsoresList";
+import SeasonsList from "../containers/seasones/seasoneList";
+import ClubDetails from "../containers/clubs/clubsDetails";
 export default class Routing extends React.Component {
     render() {
         return (
@@ -21,8 +25,11 @@ export default class Routing extends React.Component {
                     <Route exact path="/about" component={About} />
                     <Route exact path="/clubs" component={ClubList} />
                     <Route exact path="/results" component={FootballResultTable} />
-                    <Route exact path="/footballers" component={FootballersList} />
+                    <Route exact path="/footballers" component={FootballersGrid} />
                     <Route path="/footballers/:personId" component={FootballerDetails} />
+                    <Route path="/sponsors/:clubId" component={SponsorsList} />
+                    <Route path="/seasons/:clubId" component={SeasonsList} />
+                    <Route path="/clubs/:clubId" component={ClubDetails} />
                     <Route path="/trainings" component={TrainingsList} />
                     <Route exact path="/" render={() => (<Redirect to="/clubs" />)} />
                 </Switch>

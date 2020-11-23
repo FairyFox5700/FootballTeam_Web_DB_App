@@ -24,6 +24,8 @@ export const fetchAll = () => dispatch => {
 export const fetchById = (clubId) => dispatch => {
     api.clubs().fetchById(clubId)
         .then(response => {
+            console.log("Response")
+            console.log(response.data)
             dispatch({
                 type: FOOTBALL_CLUB_DETAIL_SUCCESS,
                 payload: response.data

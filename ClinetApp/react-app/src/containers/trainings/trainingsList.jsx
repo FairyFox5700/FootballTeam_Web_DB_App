@@ -44,21 +44,22 @@ const TrainingsList  = ({ classes, ...props }) => {
                             </TableHead>
                             <TableBody>
                                 {
-                                    return (<TableRow key={record.trainingId} hover>
-                                    <TableCell>{record.trainingId}</TableCell>
-                                    <TableCell>{record.trainingData}</TableCell>
-                                    <TableCell>{record.stadiumName}</TableCell>
-                                    <TableCell>{record.capacity}</TableCell>
-                                    <TableCell>{record.yearOfBuild}</TableCell>
-                                    <TableCell>{record.surface}</TableCell>
-                                    <TableCell>{record.streetAddress},
-                                    {record.postalCode},
-                                    {record.country},
-                                    {record.stateProvince}
-                                    </TableCell>
-                                    </TableRow>
-                                    )
-                                })
+                                    props.trainings.map((record) => {
+                                        return (<TableRow key={record.trainingId} hover>
+                                                <TableCell>{record.trainingId}</TableCell>
+                                                <TableCell>{record.trainingData}</TableCell>
+                                                <TableCell>{record.stadiumName}</TableCell>
+                                                <TableCell>{record.capacity}</TableCell>
+                                                <TableCell>{record.yearOfBuild}</TableCell>
+                                                <TableCell>{record.surface}</TableCell>
+                                                <TableCell>{record.streetAddress},
+                                                    {record.postalCode},
+                                                    {record.country},
+                                                    {record.stateProvince}
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    })
                                 }
                             </TableBody>
                         </Table>

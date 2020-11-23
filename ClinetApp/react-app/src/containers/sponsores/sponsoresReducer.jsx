@@ -28,9 +28,10 @@ export const sponsores =(state = INITIAL_STATE, action)=> {
                 statusCodeClass: 'error'
             }
         case FETCH_SPONSORS_BY_CLUBID_SUCCESS :
+      
             return {
                 ...state,
-                sponsors: [...action.payload] ,
+                sponsors: [...sponsors, ...action.payload.data],
                 statusCodeClass: 'ok'
             }
         case FETCH_SPONSORS_BY_CLUBID_ERROR :

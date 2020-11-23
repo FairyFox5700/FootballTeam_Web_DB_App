@@ -10,7 +10,7 @@ import {
 
 const INITIAL_STATE = {
     clubs: [],
-    club: null,
+    club: {},
     message: '',
     statusCode: 0,
     statusCodeClass: ''
@@ -25,22 +25,16 @@ export const clubs =(state = INITIAL_STATE, action)=> {
                 ...state,
                 clubs:  [...action.payload] ,
                 club: null,
-                message: null,
-                statusCode: null,
                 statusCodeClass: 'ok'
             }
         case FETCH_FOOTBALL_CLUB_LIST_ERROR:
             return {
                 ...state,
-                message: action.payload.message,
-                statusCode: action.payload.statusCode,
                 statusCodeClass: 'error'
             }
         case FOOTBALL_CLUB_BY_PLAYER_LIST_ERROR:
             return {
                 ...state,
-                message: action.payload.message,
-                statusCode: action.payload.statusCode,
                 statusCodeClass: 'error'
             }
         case  FOOTBALL_CLUB_BY_PLAYER_LIST_SUCCESS:
@@ -48,24 +42,18 @@ export const clubs =(state = INITIAL_STATE, action)=> {
                 ...state,
                 clubs: action.payload.result,
                 club: null,
-                message: action.payload.message,
-                statusCode: action.payload.statusCode,
                 statusCodeClass: 'ok'
             }
         case FOOTBALL_CLUB_DETAIL_SUCCESS:
             return {
                 ...state,
-                clubs: null,
-                club: action.payload.result,
-                message: action.payload.message,
-                statusCode: action.payload.statusCode,
+                clubs: [],
+                club: action.payload ,
                 statusCodeClass: 'ok'
             }
         case FOOTBALL_CLUB_DETAIL_ERROR:
             return {
                 ...state,
-                message: action.payload.message,
-                statusCode: action.payload.statusCode,
                 statusCodeClass: 'error'
             }
         default:

@@ -5,7 +5,7 @@ export const FETCH_SPONSORS_BY_CLUBID_SUCCESS = 'FETCH_SPONSORS_BY_CLUBID_SUCCES
 export const FETCH_SPONSORS_BY_CLUBID_ERROR = 'FETCH_SPONSORS_BY_CLUBID_ERROR';
 
 
-export const fetchAllByClubId = (clubId) => dispatch => {
+export const fetchById= (clubId) => dispatch => {
     api.sponsores().fetchAllByClubId(clubId)
         .then(response => {
             dispatch({
@@ -20,7 +20,7 @@ export const fetchAllByClubId = (clubId) => dispatch => {
         });
 }
 
-export const fetchById = (id) => dispatch => {
+export const  fetchAllByClubId = (id) => dispatch => {
     api.sponsores().fetchById(id)
         .then(response => {
             dispatch({
