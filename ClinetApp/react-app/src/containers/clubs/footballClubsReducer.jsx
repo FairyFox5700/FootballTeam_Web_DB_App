@@ -4,8 +4,10 @@ import {
     FOOTBALL_CLUB_BY_PLAYER_LIST_ERROR,
     FOOTBALL_CLUB_BY_PLAYER_LIST_SUCCESS,
     FOOTBALL_CLUB_DETAIL_ERROR,
-    FOOTBALL_CLUB_DETAIL_SUCCESS
+    FOOTBALL_CLUB_DETAIL_SUCCESS,
+    FOOTBALL_CLUB_DETAIL_REQUEST
 } from "./footballClubsConstants.jsx";
+
 
 
 const INITIAL_STATE = {
@@ -13,7 +15,8 @@ const INITIAL_STATE = {
     club: {},
     message: '',
     statusCode: 0,
-    statusCodeClass: ''
+    loading: true,
+    error:''
 }
 
 export const clubs =(state = INITIAL_STATE, action)=> {
@@ -44,17 +47,18 @@ export const clubs =(state = INITIAL_STATE, action)=> {
                 club: null,
                 statusCodeClass: 'ok'
             }
+        case FOOTBALL_CLUB_DETAIL_REQUEST:
+            return { loading: true };
         case FOOTBALL_CLUB_DETAIL_SUCCESS:
             return {
-                ...state,
+                loading: false,
                 clubs: [],
-                club: action.payload ,
-                statusCodeClass: 'ok'
+                club: action.payload 
             }
         case FOOTBALL_CLUB_DETAIL_ERROR:
             return {
-                ...state,
-                statusCodeClass: 'error'
+                loading: false,
+                error: action.payload
             }
         default:
             return state;

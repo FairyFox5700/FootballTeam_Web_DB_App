@@ -24,12 +24,13 @@ const SponsorsList  = ({ clubId,...props }) => {
 
     useEffect(() => {
         props.fetchSponsorsById(clubId)
-    }, [])
+    }, [clubId])
     //toast msg.
     const { addToast } = useToasts()
     const classes = useStyles();
-   
+    console.log(props.sponsorsList)
     return (
+      
         <Paper className={classes.paper} elevation={3}>
             <Grid container>
                 <Grid item xs={12}>
@@ -49,8 +50,8 @@ const SponsorsList  = ({ clubId,...props }) => {
                             </TableHead>
                             <TableBody>
                                 {
+                                    
                                     props.sponsorsList.map((index,record) => {
-                                        const roleExists = record.role !== undefined & record.role.length>0;
                                         return (<TableRow key={index} hover>
                                                 <TableCell>{index}</TableCell>
                                                 <TableCell>{record.firstName}</TableCell>

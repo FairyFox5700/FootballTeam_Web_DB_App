@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import * as actions from "./seasonesAction";
 import { Grid, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, withStyles } from "@material-ui/core";
 import { useToasts } from "react-toast-notifications";
@@ -21,18 +21,20 @@ const useStyles = makeStyles((theme) => ({
 const SeasonsList  = (props) => {
   
     const [isLoading, setIsLoading] = useState(true);
+    const [seasonesList, setSeasonesList] = useState([]);
 
     const classes = useStyles();
-    
+    const dispatch = useDispatch();
     useEffect(() => {
-        props.fetchAllSeasones(props.clubId)
-        if(!Array.isArray(props.seasonsList))
-        {
-            props.seasonsList = [props.seasonsList]
-        }
-    }, [props.clubId])
-
+        dispatch(actions.fetchAllByClubId(props.clubId));
+    }, [dispatch])
     
+    /*const list =  dispatch(actions.fetchAllByClubId(props.clubId));*/
+    const {  listS, loading, error } = useSelector(
+        state => ({
+           listS: state.seasones.seasons,
+        })
+    );
     return (
         
         <Paper className={classes.paper} elevation={3}>
@@ -48,11 +50,9 @@ const SeasonsList  = (props) => {
                             </TableHead>
                             <TableBody>
                                 {
-                                   
-                                    props.seasonsList.map((index,record) => {
-                                        const roleExists = record.role !== undefined & record.role.length>0;
-                                        return (<TableRow key={index} hover>
-                                                <TableCell>{index}</TableCell>
+                                    listS.map((record) => {
+                                        return (<TableRow key={record.leagueId} hover>
+                                                <TableCell>{record.leagueId}</TableCell>
                                                 <TableCell>{record.leagueName}</TableCell>
                                             </TableRow>
                                         )
@@ -75,7 +75,7 @@ const mapDispatchToProp = {
     fetchAllSeasones: actions.fetchAllByClubId,
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(SeasonsList);
+export default SeasonsList
 
 
 

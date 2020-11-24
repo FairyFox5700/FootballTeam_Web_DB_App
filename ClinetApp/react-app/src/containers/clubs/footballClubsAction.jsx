@@ -2,9 +2,25 @@ import {
     FETCH_FOOTBALL_CLUB_LIST_ERROR,
     FETCH_FOOTBALL_CLUB_LIST_SUCCESS,
     FOOTBALL_CLUB_BY_PLAYER_LIST_ERROR, FOOTBALL_CLUB_BY_PLAYER_LIST_SUCCESS,
-    FOOTBALL_CLUB_DETAIL_ERROR, FOOTBALL_CLUB_DETAIL_SUCCESS
+    FOOTBALL_CLUB_DETAIL_ERROR, FOOTBALL_CLUB_DETAIL_REQUEST, FOOTBALL_CLUB_DETAIL_SUCCESS
 } from "./footballClubsConstants";
 import api from "./api";
+
+
+
+export const fetchById = (clubId) => async dispatch => {
+    try{
+        dispatch({ type: FOOTBALL_CLUB_DETAIL_REQUEST });
+        console.log(clubId);
+        const { data } = await api.clubs().fetchById(clubId);
+        console.log(data.data)
+        dispatch({ type:FOOTBALL_CLUB_DETAIL_SUCCESS, payload: data });
+    }
+    catch(err ) {
+        console.log(err)
+        dispatch({ type: FOOTBALL_CLUB_DETAIL_ERROR, payload: err.message  });
+    }
+}
 
 
 export const fetchAll = () => dispatch => {
@@ -21,7 +37,8 @@ export const fetchAll = () => dispatch => {
         }); 
 }
 
-export const fetchById = (clubId) => dispatch => {
+
+/*export const fetchById = (clubId) => dispatch => {
     api.clubs().fetchById(clubId)
         .then(response => {
             console.log("Response")
@@ -33,9 +50,9 @@ export const fetchById = (clubId) => dispatch => {
         })
         .catch(err => {
             console.log(err)
-            dispatch({ type: FOOTBALL_CLUB_DETAIL_ERROR, payload: err });
+            dispatch({ type: FOOTBALL_CLUB_DETAIL_ERROR, payload: err.message  });
         });
-}
+}*/
 
 export const fetchByPlayerId = (playerId) => dispatch => {
     api.clubs().fetchByPlayerId(playerId)

@@ -30,14 +30,9 @@ export const seasones =(state = INITIAL_STATE, action)=> {
                 statusCodeClass: 'error'
             }
         case FETCH_SEASONS_BY_CLUBID_SUCCESS :
-            let sesn;
-            if(!Array.isArray(action.payload))
-            {
-                sesn= [action.payload]
-            }
             return {
                 ...state,
-                seasons:  sesn ,
+                seasons: [action.payload],
                 statusCodeClass: 'ok'
             }
         case FETCH_SEASONS_BY_CLUBID_ERROR:

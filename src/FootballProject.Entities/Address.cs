@@ -13,7 +13,6 @@ namespace FootballProject.Entities
         public string City { get; set; }
         public string Country { get; set; }
         public string StateProvince { get; set; }
-        
         public  Stadium Stadium { get; set; }
     }
 }
