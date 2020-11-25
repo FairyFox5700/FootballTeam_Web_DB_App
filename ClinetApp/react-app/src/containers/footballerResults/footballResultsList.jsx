@@ -7,10 +7,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import * as actions from "./footballResultsActions";
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {useToasts} from "react-toast-notifications";
 import {Grid} from "@material-ui/core";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -18,7 +19,7 @@ const StyledTableCell = withStyles((theme) => ({
         color: theme.palette.common.white,
     },
     body: {
-        fontSize: 14,
+        fontSize: 18,
     },
 }))(TableCell);
 
@@ -30,91 +31,106 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-const useStyles = makeStyles({
+const useStyles = {
     table: {
         minWidth: 700,
     },
-});
+};
 
-const FootballResultTable = ({ classes, ...props }) => { 
+const FootballResultTable = ({ classes, ...props }) => {
     console.info("In table row")
-    const [results] = useState([])
-
-
+    const dispatch = useDispatch();
+    const footballDetails = useSelector((state) => state.footballResults);
+    const { results , loading, error } = footballDetails
     useEffect(() => {
-        props.fetchAllResults()
-    }, [])
+        dispatch(actions.fetchAllWithPlayers())
+        return () => {
+        };
+    }, []);
+;
+console.log(200)
+    console.log(results)
 
     //toast msg.
     const { addToast } = useToasts()
 
     return (
-        <Paper className={classes.paper} elevation={3}>
-            <Grid container>
-                <Grid item xs={12}>
-                    <TableContainer>
-                        <Table>
-                            <TableHead className={classes.root}>
-                                <TableRow>
-                                    <StyledTableCell>Result Id</StyledTableCell>
-                                    <StyledTableCell align="right">ScoredGoals</StyledTableCell>
-                                    <StyledTableCell align="right">MissedGoals</StyledTableCell>
-                                    <StyledTableCell align="right">RedCardCount</StyledTableCell>
-                                    <StyledTableCell align="right">YellowCardCount</StyledTableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                        {
-                                            props.results.map((record) => {
-                                                return (<StyledTableRow key={record.resultId} hover>
-                                                        <StyledTableCell>{record.resultId}</StyledTableCell>
-                                                        <StyledTableCell>{record.scoredGoals}</StyledTableCell>
-                                                        <StyledTableCell>{record.missedGoals}</StyledTableCell>
-                                                        <StyledTableCell>{record.redCardCount}</StyledTableCell>
-                                                        <StyledTableCell>{record.yellowCardCount}</StyledTableCell>
-                                                    </StyledTableRow>
-                                                )
-                                            })
-                                        }
-                            
-                           
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Grid>
-            </Grid>
-        </Paper>
+        <div>
+
+            {loading ? (
+                <div>Loading...</div>
+            ) : error ? (
+                <div>{error} </div>
+            ) : (
+                <>
+                    <Paper className={classes.paper} elevation={3}>
+                        <Grid container>
+                            <Grid item xs={12}>
+                                <TableContainer>
+                                    <Table>
+                                        <TableHead className={classes.root}>
+                                            <TableRow>
+                                                <StyledTableCell>Result Id</StyledTableCell>
+                                                <StyledTableCell >ScoredGoals</StyledTableCell>
+                                                <StyledTableCell>MissedGoals</StyledTableCell>
+                                                <StyledTableCell >RedCardCount</StyledTableCell>
+                                                <StyledTableCell >YellowCardCount</StyledTableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {
+                                                results.map((record,index) => {
+                                                    return (<TableRow key={index} hover>
+                                                            <TableCell>{index}</TableCell>
+                                                            <TableCell>{record.scoredGoals}</TableCell>
+                                                            <TableCell>{record.missedGoals}</TableCell>
+                                                            <TableCell>{record.redCardCount}</TableCell>
+                                                            <TableCell>{record.yellowCardCount}</TableCell>
+                                                          </TableRow>
+                                                    )
+                                                })
+                                                
+                                            }
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                </>)
+            }
+        </div>
     );
 }
-   /* return (
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                    <StyledTableRow>
-                        <StyledTableCell>Result Id</StyledTableCell>
-                        <StyledTableCell align="right">ScoredGoals</StyledTableCell>
-                        <StyledTableCell align="right">MissedGoals</StyledTableCell>
-                        <StyledTableCell align="right">RedCardCount</StyledTableCell>
-                        <StyledTableCell align="right">YellowCardCount</StyledTableCell>
-                    </StyledTableRow>
-                </TableHead>
-                    <TableBody>
-                        {
-                      props.results.map((record) => {
-                                return (<StyledTableRow key={record.resultId} hover>
-                                        <StyledTableCell>{record.resultId}</StyledTableCell>
-                                        <StyledTableCell>{record.scoredGoals}</StyledTableCell>
-                                        <StyledTableCell>{record.missedGoals}</StyledTableCell>
-                                        <StyledTableCell>{record.redCardCount}</StyledTableCell>
-                                        <StyledTableCell>{record.yellowCardCount}</StyledTableCell>
-                                    </StyledTableRow>
-                                )
-                            })
-                        }
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
+/* return (
+     <TableContainer component={Paper}>
+         <Table className={classes.table} aria-label="customized table">
+             <TableHead>
+                 <StyledTableRow>
+                     <StyledTableCell>Result Id</StyledTableCell>
+                     <StyledTableCell align="right">ScoredGoals</StyledTableCell>
+                     <StyledTableCell align="right">MissedGoals</StyledTableCell>
+                     <StyledTableCell align="right">RedCardCount</StyledTableCell>
+                     <StyledTableCell align="right">YellowCardCount</StyledTableCell>
+                 </StyledTableRow>
+             </TableHead>
+                 <TableBody>
+                     {
+                   props.results.map((record) => {
+                             return (<StyledTableRow key={record.resultId} hover>
+                                     <StyledTableCell>{record.resultId}</StyledTableCell>
+                                     <StyledTableCell>{record.scoredGoals}</StyledTableCell>
+                                     <StyledTableCell>{record.missedGoals}</StyledTableCell>
+                                     <StyledTableCell>{record.redCardCount}</StyledTableCell>
+                                     <StyledTableCell>{record.yellowCardCount}</StyledTableCell>
+                                 </StyledTableRow>
+                             )
+                         })
+                     }
+             </TableBody>
+         </Table>
+     </TableContainer>
+ );
 }*/
 
 const mapStateToProps = state => ({
@@ -122,8 +138,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProp = {
-    fetchAllResults:actions.fetchAllWithPlayers,
-    fetchByMatchId:id=>actions.fetchAllByMatchId(id),
+    fetchAllResults:actions.fetchAllWithPlayers
 }
 
 

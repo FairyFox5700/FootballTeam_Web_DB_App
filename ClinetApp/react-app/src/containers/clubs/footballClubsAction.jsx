@@ -22,7 +22,6 @@ export const fetchById = (clubId) => async dispatch => {
     }
 }
 
-
 export const fetchAll = () => dispatch => {
     api.clubs().fetchAll()
         .then(response => {

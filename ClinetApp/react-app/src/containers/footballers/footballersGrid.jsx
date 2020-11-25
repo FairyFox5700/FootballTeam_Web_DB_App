@@ -39,8 +39,7 @@ const FootballersGrid= ({ classes, ...props }) => {
     }, [])
 
         return (
-            <div className={classes.root}>
-                <GridList cellHeight={180} cols={3}  spacing={2} className={classes.gridList}>
+                <GridList container cellHeight={180} cols={3}  spacing={3} className={classes.gridList}>
                     {props.footballersList.map((tile) => (
                         <GridListTile key={tile.footballerId}>
                             <img src={imageName} alt="some-image" />
@@ -58,7 +57,7 @@ const FootballersGrid= ({ classes, ...props }) => {
                         </GridListTile>
                     ))}
                 </GridList>
-            </div>
+    
         );
     };
 

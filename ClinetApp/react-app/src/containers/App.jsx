@@ -8,19 +8,16 @@ import { ToastProvider } from "react-toast-notifications";
 import Header from "./header/header";
 import Routing from "../routes/route";
 import {BrowserRouter} from "react-router-dom";
+import Layout from "../components/latout";
+import ReactFooter from "../components/footer";
 
 function App() {
     return (
-        <Provider store={store}>
-            <BrowserRouter>
-            <ToastProvider autoDismiss={true}>
-                <Container maxWidth="lg">
-                    <Header/>
-                    <Routing />
-                </Container>
-            </ToastProvider>
-            </BrowserRouter>
-        </Provider>
+            <Provider store={store}>
+                <Header/>
+               
+                <ReactFooter />
+            </Provider>
     );
 }
 

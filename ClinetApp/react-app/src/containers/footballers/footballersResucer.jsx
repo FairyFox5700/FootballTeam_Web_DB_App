@@ -1,16 +1,18 @@
 ﻿import {
-    FETCH_PLAYERS_BY_ID_ERROR,
+    FETCH_PLAYERS_BY_ID_ERROR, FETCH_PLAYERS_BY_ID_REQUEST,
     FETCH_PLAYERS_BY_ID_SUCCESS,
     FETCH_PLAYERS_ERROR,
     FETCH_PLAYERS_SUCCESS,
     FETCH_PLAYERS_WITH_ROLES_ERROR,
     FETCH_PLAYERS_WITH_ROLES_SUCCESS
 } from "./footballersContsants";
+import {FOOTBALL_CLUB_DETAIL_ERROR} from "../clubs/footballClubsConstants";
 
 const INITIAL_STATE = {
     footballers: [],
     footballer:null,
-    statusCodeClass: ''
+    loading:true,
+    error:''
 }
 
 export const footballers =(state = INITIAL_STATE, action)=> {
@@ -43,23 +45,24 @@ export const footballers =(state = INITIAL_STATE, action)=> {
                 ...state,
                 footballers:  [],
                 footballer:null,
-                statusCodeClass: 'error'
             }
-        case FETCH_PLAYERS_BY_ID_SUCCESS:{}
+
+        case FOOTBALL_CLUB_DETAIL_ERROR:
         return {
-            ...state,
-            footballer: [...action.payload] ,
-            footballers:[],
-            statusCodeClass: 'ok'
+            loading: false,
         }
-        case FETCH_PLAYERS_BY_ID_ERROR:{}
+        case FETCH_PLAYERS_BY_ID_REQUEST:
+            return { loading: true };
+        case FETCH_PLAYERS_BY_ID_SUCCESS:
+        return {
+            loading: false,
+            footballer: action.payload
+        }
+        case FETCH_PLAYERS_BY_ID_ERROR:
             return {
-                ...state,
-                footballer: null,
-                footballers:[],
-                statusCodeClass: 'error'
+                loading: false,
+                error: action.payload
             }
-        
         default:
             return state;
     }
