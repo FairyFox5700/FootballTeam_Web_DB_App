@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const navLinks = [
     { title: `about`, path: `/about` },
     { title: `clubs`, path: `/clubs` },
-    { title: `players`, path: `/players` },
+    { title: `players`, path: `/footballers` },
     { title: `results`, path: `/results` },
 ];
 

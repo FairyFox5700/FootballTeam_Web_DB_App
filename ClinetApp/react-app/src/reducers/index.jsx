@@ -1,7 +1,7 @@
 ﻿import { combineReducers } from 'redux';
 import  {clubs} from "../containers/clubs/footballClubsReducer"
 import {footballResults} from "../containers/footballerResults/footballResultsReducer";
-import {footballers} from "../containers/footballers/footballersResucer";
+import {footballers} from "../containers/footballers/footballersReducer";
 import {matches} from "../containers/match/matchesResucer";
 import {coaches} from "../containers/coaches/coachResucer";
 import {trainings} from "../containers/trainings/trainingReducer";

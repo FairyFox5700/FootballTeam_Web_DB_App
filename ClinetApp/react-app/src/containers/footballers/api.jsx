@@ -11,7 +11,7 @@ export default {
             fetchByRoleName:roleName=>axios.get(url+"name/"+roleName),
             fetchAllWithRoles: () => axios.get(url+"roles"),
             fetchAllFilterBy: (name, surName,nationality) => axios.get(url+"filter/?name="+name+"&surname="+surName+"&nationality="+nationality),
-            fetchAllOrderAndSearchBy: (search, orderBy) => axios.get(url+"order/search/?"+name+"search="+search+"&ascending="+orderBy),
+            fetchAllOrderAndSearchBy: (search, orderBy) => axios.get(url+"order/search/?search="+search+"&ascending="+orderBy),
         }
     }
 }

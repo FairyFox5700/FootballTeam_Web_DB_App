@@ -1,23 +1,12 @@
 ﻿import React, {useEffect, useState} from "react";
-import {Grid, withStyles} from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import * as actions from "./footballersActions";
+import {Grid, makeStyles, withStyles} from "@material-ui/core";
 import {connect} from "react-redux";
-import Paper from "@material-ui/core/Paper";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import imageName from  '../../images/png-clipart-soccer-bal.png';
-import {Link} from "react-router-dom";
-import {makeStyles} from "@material-ui/core/styles";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
-import CardActions from "@material-ui/core/CardActions";
 import CollectionItem from "./footballerCollectionCardItem";
-import Container from '@material-ui/core/Container';
+import {bindActionCreators} from "redux";
+import {fetchAllWithRoles} from "./footballersActions";
+import Container from "@material-ui/core/Container";
 
-const styles = (theme) => ({
+const styles= () => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
@@ -25,6 +14,10 @@ const styles = (theme) => ({
     title:{
         fontSize:"38px",
         margin:"0 auto 30px"
+    },
+    gridList: {
+        width: 500,
+        height: 450,
     },
     items: {
         display: 'grid',
@@ -36,34 +29,55 @@ const styles = (theme) => ({
     }
 });
 
-const FootballersCardList= ({ classes, ...props }) => {
+class  FootballersCardList extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    componentDidMount() {
+        if(this.props.footballersList.length===0){
+            this.props.fetchAll()
+        }
+    }
 
-    useEffect(() => {
-        props.fetchAllFootBalers()
-    }, [])
+    render()
+    {
+        const {classes} = this.props;
+        const { error, loading, footballersList } = this.props;
+        if (error) {
+            return <div>Error! {error.message}</div>;
+        }
 
-    return (
-        <Container maxWidth="lg" className={classes.root}>
-            <h2 className={classes.title}>Footballers</h2>
-            <div className={classes.items}>
-                {
-                    props.footballersList.map((item ,index)=> <CollectionItem key={index} item={item} />)
-                }
-            </div>
-        </Container>
-    );
-};
-
-
-const mapStateToProps = state => ({
-    footballersList: state.footballers.footballers,
-})
-
-const mapDispatchToProp = {
-    fetchAllFootBalers: actions.fetchAllWithRoles,
+        if (loading) {
+            return <div>Loading...</div>;
+        }
+        return (
+            <Container maxWidth='lg' className={classes.root} >
+                <h2 className={classes.title}>{this.props.roleName}</h2>
+                    <div  className= {classes.items}>
+                        {
+                            this.props.footballersList.map((item, index) => <CollectionItem key={index} item={item}/>)
+                        }
+                    </div>
+            </Container>
+        );
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(withStyles(styles)(FootballersCardList));
+const mapStateToProps = state => {
+    return {
+        footballersList: state.footballers.footballers,
+        loading: state.footballers.loading,
+        error: state.footballers.error
+    }
+}
+
+const  mapDispatchToProp = (dispatch) => {
+    return {
+        fetchAll :  bindActionCreators(fetchAllWithRoles, dispatch),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProp)(withStyles(styles, { withTheme: true })(FootballersCardList));
 
 
 

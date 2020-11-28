@@ -9,5 +9,6 @@ namespace FootballProject.Dal.Abstract.Repositories
     public interface IRoleRepository<in TKey> where TKey: struct
     {
         Task<IEnumerable<FootballerByRoleCountModel>>GetFootballersCountByRoleName(string roleName);
+        Task<IEnumerable<Role>> GetAllRoles();
     }
 }

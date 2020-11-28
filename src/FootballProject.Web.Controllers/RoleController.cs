@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using FootballProject.Dal.Abstract.Repositories;
+using FootballProject.Entities;
 using FootballProject.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,13 @@ namespace FootballProject.Web.Controllers
         public RoleController(IRoleRepository<int> roleRepository)
         {
             _roleRepository = roleRepository;
+        }
+        
+        //GET api/roles
+        [HttpGet]
+        public async  Task<IEnumerable<Role>> GetAllRoles()
+        {
+            return await _roleRepository.GetAllRoles();
         }
         
         //GET api/roles/{roleName}

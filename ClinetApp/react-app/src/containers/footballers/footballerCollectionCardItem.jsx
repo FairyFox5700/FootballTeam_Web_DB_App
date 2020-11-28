@@ -27,18 +27,10 @@ const useStyles = makeStyles((theme) => ({
     }})
 );
 
-const CollectionItem  = ({item}) =>{
-       /* const {
+const CollectionItem  = ({match,item}) =>{
+      const {
             params: { footballerId },
         } = match;
-        const dispatch = useDispatch();
-        const footballerDetails = useSelector((state) => state.footballers);
-        const { footbalers , loading, error } = footballerDetails;
-        useEffect(() => {
-            dispatch(actions.fetchById(clubId))
-            return () => {
-            };
-        }, [clubId]);*/
     const {personId, firstName,middleName, placeOfBirth, imageUrl } = item;
     const classes = useStyles();
     
@@ -62,7 +54,7 @@ const CollectionItem  = ({item}) =>{
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small"   href={`/footballers/${1}`} color="primary">
+                <Button size="small"   href={`/footballers/${footballerId}`} color="primary">
                     Details
                 </Button>
             </CardActions>

@@ -1,6 +1,6 @@
 ﻿import React, {Component} from 'react';
 
-import {Footer} from 'react-materialize';
+import {Footer} from 'react-materialize/lib';
 import Link from "@material-ui/core/Link";
 
 

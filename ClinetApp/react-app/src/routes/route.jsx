@@ -19,6 +19,8 @@ import SeasonsList from "../containers/seasones/seasoneList";
 import ClubDetails from "../containers/clubs/clubsDetails";
 import FootballersCardList from "../containers/footballers/footballerCardList";
 import Main from "../components/hero";
+import RoleWithPlayersTabs from "../containers/roles/footballerGrid";
+import ResponsiveDrawer from "../containers/roles/rolesDrawer";
 export default class Routing extends React.Component {
     render() {
         return (
@@ -27,6 +29,7 @@ export default class Routing extends React.Component {
                     <Route path="/home" component ={Main}/>
                     <Route exact path="/about" component={About} />
                     <Route exact path="/clubs" component={ClubList} />
+                    <Route exact path="/roles" component={ResponsiveDrawer} />
                     <Route exact path="/results" component={FootballResultTable} />
                     <Route exact path="/footballers" component={FootballersCardList} />
                     <Route path="/footballers/:personId" component={FootballerDetails} />
