@@ -1,24 +1,27 @@
-﻿import {COACH_DETAIL_ERROR, COACH_DETAIL_SUCCESS} from "./coachesCostants";
+﻿import {COACH_DETAIL_ERROR, COACH_DETAIL_REQUEST, COACH_DETAIL_SUCCESS} from "./coachesCostants";
 const INITIAL_STATE = {
     coach: null,
-    statusCodeClass: ''
+    loading:true,
+    error:''
 }
 
 export const coaches =(state = INITIAL_STATE, action)=> {
     console.log(action.type)
     console.log(action.payload);
     switch (action.type) {
-        case COACH_DETAIL_SUCCESS :{}
+        case COACH_DETAIL_REQUEST :
+            return {
+                loading: true
+            }
+        case COACH_DETAIL_SUCCESS :
         return {
-            ...state,
-            coach: [...action.payload] ,
-            statusCodeClass: 'ok'
+            coach: action.payload ,
+            loading: false
         }
         case COACH_DETAIL_ERROR :{}
             return {
-                ...state,
                 coach:  null,
-                statusCodeClass: 'error'
+                error: action.payload ,
             }
         
         default:

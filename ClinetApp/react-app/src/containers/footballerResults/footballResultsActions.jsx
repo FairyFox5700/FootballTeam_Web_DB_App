@@ -4,11 +4,6 @@ import {
     FETCH_RESULT_BY_MATCH_ID_SUCCESS, FETCH_RESULTS_WITH_PLAYERS_ERROR, FETCH_RESULTS_WITH_PLAYERS_REQUEST,
     FETCH_RESULTS_WITH_PLAYERS_SUCCESS
 } from "./footballResultsConstants";
-import {
-    FETCH_FOOTBALL_CLUB_LIST_ERROR, FOOTBALL_CLUB_DETAIL_ERROR,
-    FOOTBALL_CLUB_DETAIL_REQUEST,
-    FOOTBALL_CLUB_DETAIL_SUCCESS
-} from "../clubs/footballClubsConstants";
 
 
 export const fetchAllByMatchId= (matchId) => dispatch => {

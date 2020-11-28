@@ -28,9 +28,7 @@ const useStyles = makeStyles((theme) => ({
 );
 
 const CollectionItem  = ({match,item}) =>{
-      const {
-            params: { footballerId },
-        } = match;
+
     const {personId, firstName,middleName, placeOfBirth, imageUrl } = item;
     const classes = useStyles();
     
@@ -54,7 +52,7 @@ const CollectionItem  = ({match,item}) =>{
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small"   href={`/footballers/${footballerId}`} color="primary">
+                <Button size="small"   href={`/footballers/${personId}`} color="primary">
                     Details
                 </Button>
             </CardActions>

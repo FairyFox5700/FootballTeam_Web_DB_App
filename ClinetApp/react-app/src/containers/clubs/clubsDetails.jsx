@@ -64,6 +64,7 @@ const ClubDetails= ({  match, classes,...props  }) => {
     const clubDetails = useSelector((state) => state.clubs);
     const { clubs , loading, error } = clubDetails;
     useEffect(() => {
+       
         dispatch(actions.fetchById(clubId))
         return () => {
         };

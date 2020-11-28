@@ -8,7 +8,6 @@ const INITIAL_STATE = {
     results: [],
     error:'',
     loading:false,
-    statusCodeClass: ''
 }
 
 export const footballResults = (state = INITIAL_STATE, action)=> {

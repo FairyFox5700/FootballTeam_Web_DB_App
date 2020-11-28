@@ -1,5 +1,7 @@
 ﻿import api from "./api";
 import {
+    ADD_PLAYERS_WITH_ROLES_REQUEST,
+    ADD_PLAYERS_WITH_ROLES_REQUEST_ERROR,
     FETCH_PLAYERS_BY_ID_ERROR, FETCH_PLAYERS_BY_ID_REQUEST,
     FETCH_PLAYERS_BY_ID_SUCCESS,
     FETCH_PLAYERS_BY_ROLE_NAME_ERROR, FETCH_PLAYERS_BY_ROLE_NAME_REQUEST,
@@ -32,6 +34,23 @@ export const fetchAllWithRoles = ()  => async dispatch => {
     }
 }
 
+export const addComment= (footballer, roleId) =>async dispatch => {
+    try {
+        return (dispatch) => {
+            if (footballer && roleId) {
+                dispatch({type: ADD_PLAYERS_WITH_ROLES_REQUEST});
+                const {data} = api.footballers().addFootballer(JSON.stringify({
+                    footballer: footballer,
+                    roleId: roleId
+                }));
+                console.log("RESPONSE RECEIVED: ", data);
+            }
+        }
+    }
+    catch(err ) {
+            console.log(err)
+            dispatch({ type:ADD_PLAYERS_WITH_ROLES_REQUEST_ERROR, payload: err.message  });
+        }
 
 export const fetchAll=() => async dispatch => {
     try{

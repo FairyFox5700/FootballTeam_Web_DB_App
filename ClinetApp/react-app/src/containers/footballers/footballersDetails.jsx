@@ -1,17 +1,11 @@
-﻿import {Class} from "@material-ui/icons";
-
-﻿import React, { useState, useEffect } from "react";
+﻿﻿import React, { useState, useEffect } from "react";
 import { Link, BrowserRouter as Router, Route } from "react-router-dom";
 import * as actions from "../footballers/footballersActions";
 import {connect, useDispatch, useSelector} from "react-redux";
 import {withStyles} from "@material-ui/core";
 import {useToasts} from "react-toast-notifications";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import CardActions from "@material-ui/core/CardActions";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import Container from "@material-ui/core/Container";
+import  {fetchByPlayerId} from "../clubs/footballClubsAction"
+import ClubList from "../clubs/footballClubsList";
 
 
 const styles =theme => ({
@@ -81,9 +75,10 @@ const FootballerDetails = ({ match, classes,...props  }) => {
     const dispatch = useDispatch();
     const footballerDetails = useSelector((state) => state.footballers);
     const { footballer , loading, error } =footballerDetails ;
-
+    
     useEffect(() => {
         dispatch(actions.fetchById(personId))
+        dispatch(fetchByPlayerId(personId))
         return () => {
         };
     }, [personId])
@@ -114,11 +109,12 @@ const FootballerDetails = ({ match, classes,...props  }) => {
                                 <p className={classes.property} ><span className={classes.nestedProp}>Height:</span>{footballer.height}</p>
                                 <p className={classes.property} ><span className={classes.nestedProp}>Weight: </span>{footballer.weight}</p>
                             </div>
+                            <hr/>
+                            <ClubList clubs ={props.clubs}/>
                         </div>
-                        
-                        <hr/>
-                        
+                       
                     </div>
+                    
                 </>)
             }
         </div>
@@ -126,10 +122,15 @@ const FootballerDetails = ({ match, classes,...props  }) => {
 };
 const mapStateToProps = state => ({
     footballer: state.footballers.footballer,
+    clubs: state.clubs.clubs,
+   // results: state.results.results
+    
 })
 
 const mapDispatchToProp = {
     fetchSponsorsByClubId: actions.fetchById,
+    fetchClubsForFootballer :fetchByPlayerId,
+    
 }
 
 export default connect(mapStateToProps, mapDispatchToProp)(withStyles(styles)(FootballerDetails));
