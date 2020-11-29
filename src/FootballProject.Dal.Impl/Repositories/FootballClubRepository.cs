@@ -44,11 +44,10 @@ namespace FootballProject.Dal.Impl.Repositories
                 splitOn:"logo_id",
                 commandType:CommandType.StoredProcedure,
                 commandTimeout:900);
-            return result;
+            return result
+                .Distinct();;
         }
 
-
-        //TODO retuen coachFULLName
         public async Task<FootballClub> GetFootballClubsById(int clubId)
         {
             var query = "get_footballers_club_by_id_with_details";
@@ -78,7 +77,7 @@ namespace FootballProject.Dal.Impl.Repositories
                     splitOn:"logo_id",
                     commandType:CommandType.StoredProcedure,
                     commandTimeout:900);
-                return result.FirstOrDefault();
+                return result.Distinct().FirstOrDefault();
         }
 
         public async Task<IEnumerable<FootballClub>> GetFootballClubsByPlayerId(int playerId)

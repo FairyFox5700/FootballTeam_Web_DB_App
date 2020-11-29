@@ -7,6 +7,7 @@ using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
 using Microsoft.Extensions.Configuration;
 using  Dapper;
+using FootballProject.Models;
 using Npgsql;
 
 namespace FootballProject.Dal.Impl.Repositories
@@ -109,6 +110,63 @@ namespace FootballProject.Dal.Impl.Repositories
                 new { orderbykey = search, orderascdesc= ascending?"ASC":"DESC" },
                 commandType:CommandType.StoredProcedure,
                 commandTimeout:900
+            );
+        }
+
+        public async Task<int> AddFootballer(FootballerDto footballerToAdd)
+        {
+            await using var connection =  new NpgsqlConnection(_connectionString);
+            connection.Open();
+            var parameters = FootballerFromModel(footballerToAdd);
+
+           return await connection.ExecuteAsync(
+                @"public.insert_footballer",
+                parameters,
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900
+            );
+        }
+
+
+        private object FootballerFromModel(FootballerDto footballerDto)
+        {
+            var newFootballer = new
+            {
+                Nationality = footballerDto.Nationality,
+                FirstName = footballerDto.FirstName,
+                MiddleName = footballerDto.MiddleName,
+                PlaceOfBirth = footballerDto.PlaceOfBirth,
+                RoleId = footballerDto.RoleId,
+                DataOfBirth = footballerDto.DataOfBirth,
+                Height = footballerDto.Height,
+                Weight = footballerDto.Weight,
+                PersonId = footballerDto.PersonId
+            };
+            return newFootballer;
+        }
+
+        public async Task<int> UpdateFootballer(FootballerDto footballerFotUpdate)
+        {
+            await using var connection =  new NpgsqlConnection(_connectionString);
+            connection.Open();
+            var parameters =  FootballerFromModel(footballerFotUpdate);
+            return await connection.ExecuteAsync(
+                @"public.update_footballer",
+                parameters,
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900
+            );
+        }
+
+        public async Task<int> DeleteFootballer(int footballerId)
+        {
+            var sql = @"DELETE FROM public.footballers f WHERE  f.player_id = @footballerId";
+            await using var connection =  new NpgsqlConnection(_connectionString);
+            connection.Open();
+            var parameters = new {footballerId = footballerId};
+            return await connection.ExecuteAsync(
+                sql ,
+                parameters
             );
         }
     }

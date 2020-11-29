@@ -19,7 +19,7 @@ export default {
             fetchAllFilterBy: (name, surName, nationality) => axios.get(url + "filter/?name=" + name + "&surname=" + surName + "&nationality=" + nationality),
             fetchAllOrderAndSearchBy: (search, orderBy) => axios.get(url + "order/search/?search=" + search + "&ascending=" + orderBy),
             addFootballer: (postData) => axios.post(url, postData, axiosConfig),
-            updateFootballer: (putData, playerId) => axios.put(url + playerId, putData, axiosConfig),
+            updateFootballer: (playerId,putData) => axios.put(url+playerId,  putData, axiosConfig),
             deleteFootballer: (playerId) => axios.delete(url + playerId),
         }
     }

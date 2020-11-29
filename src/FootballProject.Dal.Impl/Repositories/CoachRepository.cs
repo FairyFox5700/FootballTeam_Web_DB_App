@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using FootballProject.Dal.Abstract.Repositories;
@@ -30,7 +31,7 @@ namespace FootballProject.Dal.Impl.Repositories
             var coachDictionary = new Dictionary<int, Coach>();
             await using var connection = new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
-            var result = await connection.QueryAsync<Coach,FootballClub,Coach>(
+            var result = connection.QueryAsync<Coach,FootballClub,Coach>(
                 query, 
                 param:new {coachid = coachId},
                 map: (c, f) =>
@@ -49,7 +50,8 @@ namespace FootballProject.Dal.Impl.Repositories
                 },
                 commandType:CommandType.StoredProcedure,
                 splitOn:"club_id"
-            );
+            ).Result
+                .Distinct();
             return result;
         }
     }

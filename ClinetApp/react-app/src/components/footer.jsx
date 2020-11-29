@@ -2,28 +2,38 @@
 
 import {Footer} from 'react-materialize/lib';
 import Link from "@material-ui/core/Link";
+import {makeStyles} from "@material-ui/core";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
 
-
+const useStyles = makeStyles((theme) => ({
+ footer:{
+        'marginTop': '1rem',
+        'padding': '1rem',
+        'backgroundColor': 'rgb(230,221,239)',
+        'bottom': 0,
+        'left': 0,
+        'width': '100%',
+        'fontSize':'1.2rem'
+ }
+}));
 const ReactFooter =(...props)=>{
+    const classes = useStyles();
     return (
-        <div>
+        <div className={classes.footer}>
             {props.children}
-            <Footer copyrights="&copy; 2015 Copyright Text"
-                    moreLinks={
-                        <Link className="grey-text text-lighten-4 right" href="#!">More Links</Link>
-                    }
+            <Footer  copyrights="&copy; 2015 Copyright Text"
                     links={
-                        <ul>
-                            <li><Link to="/About Us" className="grey-text text-lighten-3">About Us</Link></li>
-                            <li><Link to="/Terms & Conditions" className="grey-text text-lighten-3">Terms & Conditions</Link></li>
-                            <li><Link to="/Help" className="grey-text text-lighten-3">Help</Link></li>
-                            <li><Link to="/Contact Us" className="grey-text text-lighten-3">Contact Us</Link></li>
-                        </ul>
+                        <List >
+                            <ListItem><Link to="/About Us" className="grey-text text-lighten-3">About Us</Link></ListItem>
+                            <ListItem><Link to="/Terms & Conditions" className="grey-text text-lighten-3">Terms & Conditions</Link></ListItem>
+                            <ListItem><Link to="/Help" className="grey-text text-lighten-3">Help</Link></ListItem>
+                            <ListItem><Link to="/Contact Us" className="grey-text text-lighten-3">Contact Us</Link> </ListItem>
+                        </List >
                     }
                     className='example'
             >
-                <h5 className="white-text">Footer Content</h5>
-                <p className="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                <h5 className="white-text">Contact us</h5>
             </Footer>
         </div>
     );

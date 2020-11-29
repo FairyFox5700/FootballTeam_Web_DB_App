@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
+using FootballProject.Models;
 using FootballProject.Models.Requests;
 using FootballProject.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +70,24 @@ namespace FootballProject.Web.Controllers
         public async Task<IEnumerable<Footballer>> GetAllFootballer([FromQuery]string search, [FromQuery]bool ascending)
         {
             return await _footballerRepository.GetFootballersOrdered(search,ascending);
+        }
+
+        [HttpPost]
+        public async Task<int> AddFootballer(FootballerDto footballerDto)
+        {
+            return await _footballerRepository.AddFootballer(footballerDto);
+        }
+        
+        [HttpPut]
+        public async Task<int> UpdateFootballer(FootballerDto footballerDto)
+        {
+            return await _footballerRepository.UpdateFootballer(footballerDto);
+        }
+
+        [HttpDelete("{footballerId}")]
+        public async Task<int> DeleteFootballer(int footballerId)
+        {
+            return await _footballerRepository.DeleteFootballer(footballerId);
         }
     }
 }

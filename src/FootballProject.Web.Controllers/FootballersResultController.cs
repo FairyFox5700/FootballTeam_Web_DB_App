@@ -32,6 +32,20 @@ namespace FootballProject.Web.Controllers
         {
             return await _footballersResultRepository.GetFootballerResultsByPlayersIdOrderedBy(playerId,orderBy);
         }
+
+        [HttpGet]
+        [Route("total/match/{matchId}")]
+        public async Task<TotalResultsForMatch> GetTotalResultsForMatchById(int matchId)
+        {
+            return await _footballersResultRepository.GetTotalResultsForMatchById(matchId);
+        }
+
+        [HttpGet]
+        [Route("total/player/{playerId}")]
+        public async Task<TotalResultsForFootballer> GetTotalResultsForPlayerById(int playerId)
+        {
+           return await _footballersResultRepository.GetTotalResultsForPlayerById(playerId);
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using FootballProject.Entities;
+using FootballProject.Models;
 using FootballProject.Models.Responses;
 
 namespace FootballProject.Dal.Abstract.Repositories
@@ -13,5 +14,10 @@ namespace FootballProject.Dal.Abstract.Repositories
         Task<IEnumerable<Footballer>> GetFootballersByNameSurnameNationality(string name = "", string surname = "", string nationality = "");
         Task<Footballer> GetFootballerById(TKey footballerId);
         Task<IEnumerable<Footballer>> GetFootballersOrdered(string search, bool @ascending = true);
+        Task<int> AddFootballer(FootballerDto footballerToAdd);
+        Task<int> UpdateFootballer(FootballerDto footballerFotUpdate);
+        Task<int> DeleteFootballer(TKey footballerId);
+
+
     }
 }
