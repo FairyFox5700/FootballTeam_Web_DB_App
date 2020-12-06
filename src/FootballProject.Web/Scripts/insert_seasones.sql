@@ -1,0 +1,13 @@
+ALTER TABLE public.seasones DISABLE TRIGGER ALL;
+insert into public.seasones (season_id, league_name) values (1, 'Transcof');
+insert into public.seasones (season_id, league_name) values (2, 'Regrant');
+insert into public.seasones (season_id, league_name) values (3, 'Keylex');
+insert into public.seasones (season_id, league_name) values (4, 'Andalax');
+insert into public.seasones (season_id, league_name) values (5, 'Sub-Ex');
+insert into public.seasones (season_id, league_name) values (6, 'Tempsoft');
+insert into public.seasones (season_id, league_name) values (7, 'Zathin');
+insert into public.seasones (season_id, league_name) values (8, 'Viva');
+insert into public.seasones (season_id, league_name) values (9, 'Regrant');
+insert into public.seasones (season_id, league_name) values (10, 'Flowdesk');
+select * from public.seasones;
+ALTER TABLE public.seasones ENABLE TRIGGER ALL;

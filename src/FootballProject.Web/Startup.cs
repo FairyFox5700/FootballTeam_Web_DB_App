@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using DbUp;
 using FootballProject.Dal.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,12 +41,13 @@ namespace FootballProject.Web
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             DalDependencyInjector.Install(services);
                 //TODO add scripts to run migrations
-                /*EnsureDatabase.For.SqlDatabase(connectionString);
+               EnsureDatabase.For.PostgresqlDatabase(connectionString);
                 var upgrader = DeployChanges.To
-                    .SqlDatabase(connectionString, null)
+                    .PostgresqlDatabase(connectionString, null)
                     .WithScriptsEmbeddedInAssembly(
                         System.Reflection.Assembly.GetExecutingAssembly()
                     )
+                    .WithVariablesDisabled()
                     .WithTransaction()
                     .Build();
                     
@@ -53,7 +55,7 @@ namespace FootballProject.Web
                 {
                     upgrader.PerformUpgrade();
                 }
-                */
+                
         }
 
         
