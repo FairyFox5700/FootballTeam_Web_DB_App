@@ -1,0 +1,50 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "FootballProject.Dal.Abstract/1.0.0": {
+        "dependencies": {
+          "FootballProject.Entities": "1.0.0",
+          "FootballProject.Models": "1.0.0"
+        },
+        "runtime": {
+          "FootballProject.Dal.Abstract.dll": {}
+        }
+      },
+      "FootballProject.Entities/1.0.0": {
+        "runtime": {
+          "FootballProject.Entities.dll": {}
+        }
+      },
+      "FootballProject.Models/1.0.0": {
+        "dependencies": {
+          "FootballProject.Entities": "1.0.0"
+        },
+        "runtime": {
+          "FootballProject.Models.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FootballProject.Dal.Abstract/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FootballProject.Entities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FootballProject.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
