@@ -71,12 +71,12 @@ namespace FootballProject.Web
             app.UseRouting();
            // app.UseApiResponseAndExceptionWrapper();
             app.UseAuthorization();            
-            app.UseCors(options =>
-                options.WithOrigins("http://localhost:3000")
+            app.UseCors(options => 
+                    options
+                    .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowAnyMethod());
-
-  
+                    .AllowCredentials()
+                    .WithOrigins(Configuration["Frontend"]));
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
