@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v3.1": {
       "FootballProject.Models/1.0.0": {
+        "dependencies": {
+          "FootballProject.Entities": "1.0.0"
+        },
         "runtime": {
           "FootballProject.Models.dll": {}
+        }
+      },
+      "FootballProject.Entities/1.0.0": {
+        "runtime": {
+          "FootballProject.Entities.dll": {}
         }
       }
     }
   },
   "libraries": {
     "FootballProject.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FootballProject.Entities/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

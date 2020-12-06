@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v3.1": {
       "FootballProject.Dal.Abstract/1.0.0": {
         "dependencies": {
-          "FootballProject.Entities": "1.0.0"
+          "FootballProject.Entities": "1.0.0",
+          "FootballProject.Models": "1.0.0"
         },
         "runtime": {
           "FootballProject.Dal.Abstract.dll": {}
@@ -17,6 +18,14 @@
       "FootballProject.Entities/1.0.0": {
         "runtime": {
           "FootballProject.Entities.dll": {}
+        }
+      },
+      "FootballProject.Models/1.0.0": {
+        "dependencies": {
+          "FootballProject.Entities": "1.0.0"
+        },
+        "runtime": {
+          "FootballProject.Models.dll": {}
         }
       }
     }
@@ -28,6 +37,11 @@
       "sha512": ""
     },
     "FootballProject.Entities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FootballProject.Models/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

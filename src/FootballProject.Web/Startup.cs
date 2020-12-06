@@ -33,7 +33,7 @@ namespace FootballProject.Web
         {
             var controllersAssembly = Assembly.Load("FootballProject.Web.Controllers");
             services.AddControllers();
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = Configuration.GetConnectionString();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });                
