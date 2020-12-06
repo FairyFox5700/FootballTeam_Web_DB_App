@@ -78,10 +78,10 @@ namespace FootballProject.Web.Controllers
             return await _footballerRepository.AddFootballer(footballerDto);
         }
         
-        [HttpPut]
-        public async Task<int> UpdateFootballer(FootballerDto footballerDto)
+        [HttpPut("{playerId}")]
+        public async Task<int> UpdateFootballer([FromRoute]int playerId, FootballerDto footballerDto)
         {
-            return await _footballerRepository.UpdateFootballer(footballerDto);
+            return await _footballerRepository.UpdateFootballer(playerId,footballerDto);
         }
 
         [HttpDelete("{footballerId}")]

@@ -113,54 +113,71 @@ namespace FootballProject.Dal.Impl.Repositories
             );
         }
 
-        public async Task<int> AddFootballer(FootballerDto footballerToAdd)
+        public async Task<int> AddFootballer(FootballerDto footballerDto)
         {
             await using var connection =  new NpgsqlConnection(_connectionString);
             connection.Open();
-            var parameters = FootballerFromModel(footballerToAdd);
-
-           return await connection.ExecuteAsync(
-                @"public.insert_footballer",
-                parameters,
-                commandType:CommandType.StoredProcedure,
-                commandTimeout:900
-            );
-        }
-
-
-        private object FootballerFromModel(FootballerDto footballerDto)
-        {
-            var newFootballer = new
+            var parameters = new
             {
-                Nationality = footballerDto.Nationality,
                 FirstName = footballerDto.FirstName,
                 MiddleName = footballerDto.MiddleName,
-                PlaceOfBirth = footballerDto.PlaceOfBirth,
-                RoleId = footballerDto.RoleId,
+                Nationality = footballerDto.Nationality,
                 DataOfBirth = footballerDto.DataOfBirth,
+                PlaceOfBirth = footballerDto.PlaceOfBirth,
                 Height = footballerDto.Height,
                 Weight = footballerDto.Weight,
-                PersonId = footballerDto.PersonId
+                RoleId = footballerDto.RoleId,
             };
-            return newFootballer;
+            var sql = @"INSERT INTO public.footballers (first_name,
+            middle_name,
+            nationality, 
+            data_of_birth, 
+            place_of_birth, 
+            height, 
+            weight, 
+            role_id)
+            VALUES (@FirstName, @MiddleName, 
+            @Nationality, @DataOfBirth, 
+             @PlaceOfBirth, @Height, @Weight, @RoleId);
+            ";
+           return await connection.ExecuteAsync(sql,parameters);
         }
 
-        public async Task<int> UpdateFootballer(FootballerDto footballerFotUpdate)
+
+        public async Task<int> UpdateFootballer(int playerId, FootballerDto footballerDto)
         {
             await using var connection =  new NpgsqlConnection(_connectionString);
             connection.Open();
-            var parameters =  FootballerFromModel(footballerFotUpdate);
+            var parameters = new
+            {
+                PersonId = playerId,
+                FirstName = footballerDto.FirstName,
+                MiddleName = footballerDto.MiddleName,
+                Nationality = footballerDto.Nationality,
+                DataOfBirth = footballerDto.DataOfBirth,
+                PlaceOfBirth = footballerDto.PlaceOfBirth,
+                Height = footballerDto.Height,
+                Weight = footballerDto.Weight,
+                RoleId = footballerDto.RoleId,
+            };
+            var sql = @"UPDATE public.footballers SET first_name = @FirstName,
+            middle_name = @MiddleName, 
+            nationality = @Nationality,
+            data_of_birth = @DataOfBirth, 
+            place_of_birth =@PlaceOfBirth, 
+            height =@Height,
+            weight = @Weight,
+            role_id =@RoleId
+            WHERE person_id = @PersonId";
             return await connection.ExecuteAsync(
-                @"public.update_footballer",
-                parameters,
-                commandType:CommandType.StoredProcedure,
-                commandTimeout:900
+                sql ,
+                parameters
             );
         }
 
         public async Task<int> DeleteFootballer(int footballerId)
         {
-            var sql = @"DELETE FROM public.footballers f WHERE  f.player_id = @footballerId";
+            var sql = @"DELETE FROM public.footballers f WHERE  f.person_id = @footballerId";
             await using var connection =  new NpgsqlConnection(_connectionString);
             connection.Open();
             var parameters = new {footballerId = footballerId};

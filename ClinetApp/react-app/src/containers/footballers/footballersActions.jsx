@@ -1,7 +1,7 @@
 ﻿import api from "./api";
 import {
     ADD_PLAYERS_WITH_ROLES_REQUEST,
-    ADD_PLAYERS_WITH_ROLES_REQUEST_ERROR,
+    ADD_PLAYERS_WITH_ROLES_REQUEST_ERROR, DELETE_PLAYERS_REQUEST,
     FETCH_PLAYERS_BY_ID_ERROR, FETCH_PLAYERS_BY_ID_REQUEST,
     FETCH_PLAYERS_BY_ID_SUCCESS,
     FETCH_PLAYERS_BY_ROLE_NAME_ERROR, FETCH_PLAYERS_BY_ROLE_NAME_REQUEST,
@@ -13,13 +13,17 @@ import {
     FETCH_PLAYERS_ORDERED_SUCCESS,
     FETCH_PLAYERS_SUCCESS,
     FETCH_PLAYERS_WITH_ROLES_ERROR, FETCH_PLAYERS_WITH_ROLES_REQUEST,
-    FETCH_PLAYERS_WITH_ROLES_SUCCESS, UPDATE_PLAYERS_WITH_ROLES_REQUEST, UPDATE_PLAYERS_WITH_ROLES_REQUEST_ERROR
+    FETCH_PLAYERS_WITH_ROLES_SUCCESS, UPDATE_PLAYERS_WITH_ROLES_REQUEST, UPDATE_PLAYERS_WITH_ROLES_REQUEST_ERROR,
+    DELETE_PLAYERS_ERROR
 } from "./footballersContsants";
-import {
-    FOOTBALL_CLUB_DETAIL_ERROR,
-    FOOTBALL_CLUB_DETAIL_REQUEST,
-    FOOTBALL_CLUB_DETAIL_SUCCESS
-} from "../clubs/footballClubsConstants";
+
+
+const formateData = data => ({
+    ...data,
+    height: parseInt(data.height ? data.height : 0),
+    weight: parseInt(data.weight ? data.weight : 0)
+})
+
 
 export const fetchAllWithRoles = ()  => async dispatch => {
     try{
@@ -33,55 +37,57 @@ export const fetchAllWithRoles = ()  => async dispatch => {
         dispatch({ type:FETCH_PLAYERS_WITH_ROLES_ERROR, payload: err.message  });
     }
 }
-export const updateFootballer =  (playerId,footballer) =>async dispatch => {
-    try {
-        return (dispatch) => {
-            if (footballer) {
-                dispatch({type: UPDATE_PLAYERS_WITH_ROLES_REQUEST});
-                const {data} = api.footballers().updateFootballer(JSON.stringify({
-                    playerId:playerId,
-                    footballer: footballer
-                }));
-                console.log("RESPONSE RECEIVED: ", data);
-            }
-        }
-    } catch (err) {
-        console.log(err)
-        dispatch({type: UPDATE_PLAYERS_WITH_ROLES_REQUEST_ERROR, payload: err.message});
-    }
+
+export const updateFootballer =  (playerId,footballer, onSuccess) => dispatch => {
+    const data = formateData(footballer)
+    api.footballers().updateFootballer(playerId,footballer)
+        .then(res => {
+            dispatch({
+                type: UPDATE_PLAYERS_WITH_ROLES_REQUEST,
+                payload: { playerId, ...data }
+            })
+            onSuccess()
+            console.log("RESPONSE RECEIVED: ", data);
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch({type: UPDATE_PLAYERS_WITH_ROLES_REQUEST_ERROR, payload: err.message});
+        })
 }
 
+export const deleteFootballer = (id, onSuccess) => dispatch => {
+    api.footballers().deleteFootballer(id)
+        .then(res => {
+            dispatch({
+                type: DELETE_PLAYERS_REQUEST,
+                payload: id
+            })
+            onSuccess()
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch({type: DELETE_PLAYERS_ERROR, payload: err.message})
+        })
+}
 
-    export const deleteFootballer = (id) =>async dispatch => {
-        try {
-            return (dispatch) => {
-                    dispatch({type: UPDATE_PLAYERS_WITH_ROLES_REQUEST});
-                    const {data} = api.footballers().delete(id);
-                    console.log("RESPONSE RECEIVED: ", data);
-            }
-        }
-        catch(err ) {
-            console.log(err)
-            dispatch({ type:UPDATE_PLAYERS_WITH_ROLES_REQUEST_ERROR, payload: err.message  });
-        }
-    }
+export const  addFootballer= (footballer, onSuccess) => dispatch => {
+    const data = formateData(footballer)
+    api.footballers().addFootballer(data)
+        .then(res => {
+            dispatch({
+                type: ADD_PLAYERS_WITH_ROLES_REQUEST,
+                payload: res.data
+            })
+            onSuccess()
+            console.log("RESPONSE RECEIVED: ", data);
+        })
+        .catch(err => {
 
-    export const addFootballer= (footballer, roleId) =>async dispatch => {
-        try {
-            return (dispatch) => {
-                if (footballer && roleId) {
-                    dispatch({type: ADD_PLAYERS_WITH_ROLES_REQUEST});
-                    const {data} = api.footballers().addFootballer(JSON.stringify({
-                        footballer: footballer
-                    }));
-                    console.log("RESPONSE RECEIVED: ", data);
-                }
-            }
-        } catch (err) {
             console.log(err)
             dispatch({type: ADD_PLAYERS_WITH_ROLES_REQUEST_ERROR, payload: err.message});
-        }
-    }
+        });
+}
+        
 
 export const fetchAll=() => async dispatch => {
     try{

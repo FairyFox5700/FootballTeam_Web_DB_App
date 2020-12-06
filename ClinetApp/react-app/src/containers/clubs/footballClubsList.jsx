@@ -5,6 +5,7 @@ import { Grid, Paper, TableContainer, Table, TableHead, TableRow, TableCell, Tab
 import { useToasts } from "react-toast-notifications";
 import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
 
 const styles = theme => ({
     root: {
@@ -45,50 +46,52 @@ const ClubList  = ({ clubs,classes, ...props }) => {
                     <div>{error} </div>
                 ) : (
                     <>
-                        <Paper className={classes.paper} elevation={3}>
-                            <Grid container>
-                                <Grid item xs={12}>
-                                    <TableContainer>
-                                        <Table>
-                                            <TableHead className={classes.root}>
-                                                <TableRow>
-                                                    <TableCell>FootballClubId</TableCell>
-                                                    <TableCell>FootballClubName</TableCell>
-                                                    <TableCell>Image</TableCell>
-                                                </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                {
-                                                    clubs.map((record) => {
-                                                        const logosIsEmpty = (record.logos===undefined ||
-                                                            record.logos===null||
-                                                            record.logos.length ===0);
-                                                       
-                                                        return (<TableRow key={record.footballClubId} hover>
-                                                                <TableCell>{record.footballClubId}</TableCell>
-                                                                <TableCell>
-                                                                    <Link to={`/clubs/${record.footballClubId}`}>
-                                                                        {record.footballClubName}
-                                                                    </Link>
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    {!logosIsEmpty?
-                                                                        (<img
-                                                                            style={{height: 'auto', maxWidth: '100px'}}
-                                                                            alt={`${record.logos[0].imageName}`}
-                                                                            src={`${atob(record.logos[0].image)}`}
-                                                                        ></img>):(<p>No logos</p>)}
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        )
-                                                    })
-                                                }
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
+                        <Container maxWidth='lg'>
+                            <Paper className={classes.paper} elevation={3}>
+                                <Grid container>
+                                    <Grid item xs={12}>
+                                        <TableContainer>
+                                            <Table>
+                                                <TableHead className={classes.root}>
+                                                    <TableRow>
+                                                        <TableCell>Football Club Id</TableCell>
+                                                        <TableCell>Football Club Name</TableCell>
+                                                        <TableCell>Image</TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    {
+                                                        clubs.map((record) => {
+                                                            const logosIsEmpty = (record.logos===undefined ||
+                                                                record.logos===null||
+                                                                record.logos.length ===0);
+
+                                                            return (<TableRow key={record.footballClubId} hover>
+                                                                    <TableCell>{record.footballClubId}</TableCell>
+                                                                    <TableCell>
+                                                                        <Link to={`/clubs/${record.footballClubId}`}>
+                                                                            {record.footballClubName}
+                                                                        </Link>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        {!logosIsEmpty?
+                                                                            (<img
+                                                                                style={{height: 'auto', maxWidth: '100px'}}
+                                                                                alt={`${record.logos[0].imageName}`}
+                                                                                src={`${atob(record.logos[0].image)}`}
+                                                                            ></img>):(<p>No logos</p>)}
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            )
+                                                        })
+                                                    }
+                                                </TableBody>
+                                            </Table>
+                                        </TableContainer>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </Paper>
+                            </Paper>
+                        </Container>
                     </>
                 )
             }

@@ -15,7 +15,7 @@ namespace FootballProject.Dal.Abstract.Repositories
         Task<Footballer> GetFootballerById(TKey footballerId);
         Task<IEnumerable<Footballer>> GetFootballersOrdered(string search, bool @ascending = true);
         Task<int> AddFootballer(FootballerDto footballerToAdd);
-        Task<int> UpdateFootballer(FootballerDto footballerFotUpdate);
+        Task<int> UpdateFootballer(int playerId, FootballerDto footballerDto);
         Task<int> DeleteFootballer(TKey footballerId);
 
 

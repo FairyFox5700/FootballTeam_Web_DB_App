@@ -7,10 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import connect from "react-redux/lib/connect/connect";
 import {useDispatch, useSelector} from "react-redux";
 import * as actions from "./footballersActions";
-import {Link} from "react-router-dom";
+import {useToasts} from "react-toast-notifications";
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: '345',
@@ -27,11 +26,13 @@ const useStyles = makeStyles((theme) => ({
     }})
 );
 
-const CollectionItem  = ({match,item}) =>{
+const CollectionItem  = ({match,item,...props}) =>{
 
+    const dispatch = useDispatch();
+    const { addToast } = useToasts()
     const {personId, firstName,middleName, placeOfBirth, imageUrl } = item;
     const classes = useStyles();
-    
+  
     return (
         <Card className={classes.root}>
             <CardActionArea>
@@ -55,9 +56,19 @@ const CollectionItem  = ({match,item}) =>{
                 <Button size="small"   href={`/footballers/${personId}`} color="primary">
                     Details
                 </Button>
+                <Button size="small"  href={`/footballer-form/${personId}`}  color="primary">
+                    Update
+                </Button>
+                <Button size="small" color="secondary" onClick={() => {
+                   
+                        props.handler(personId);
+                    }}
+              >
+                    Delete
+                </Button>
             </CardActions>
         </Card>
     );
 }
 
-export default CollectionItem;
+export default (CollectionItem);

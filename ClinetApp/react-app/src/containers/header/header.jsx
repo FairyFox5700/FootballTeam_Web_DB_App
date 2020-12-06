@@ -37,7 +37,8 @@ const navLinks = [
     { title: `about`, path: `/about` },
     { title: `clubs`, path: `/clubs` },
     { title: `players`, path: `/footballers` },
-    { title: `results`, path: `/results` },
+    { title: `results`, path: `/results` },  
+    { title: `macthes`, path: `/matches` },
 ];
 
 const Header = () => {
@@ -69,7 +70,6 @@ const Header = () => {
             </AppBar>
             <BrowserRouter>
                 <ToastProvider autoDismiss={true}>
-
                     <Routing />
 
                 </ToastProvider>

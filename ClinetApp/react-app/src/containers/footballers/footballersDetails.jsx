@@ -1,7 +1,4 @@
-﻿import Chart from "react-apexcharts";
-
-﻿import React, { useState, useEffect } from "react";
-import { Link, BrowserRouter as Router, Route } from "react-router-dom";
+﻿﻿import React, {  useEffect } from "react";
 import * as actions from "../footballers/footballersActions";
 import {connect, useDispatch, useSelector} from "react-redux";
 import {withStyles} from "@material-ui/core";
@@ -74,7 +71,7 @@ const styles =theme => ({
     }
 })
 
-const FootballerDetails = ({ match, classes,...props  }) => {
+const FootballerDetails = ({match, classes,...props  }) => {
     const {
         params: { personId },
     } = match;
@@ -154,7 +151,6 @@ const FootballerDetails = ({ match, classes,...props  }) => {
                                     </>
                                 )
                         }
-
                     </Grid>
                 </>
             )}

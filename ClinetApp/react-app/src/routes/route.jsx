@@ -21,6 +21,11 @@ import FootballersCardList from "../containers/footballers/footballerCardList";
 import Main from "../components/hero";
 import RoleWithPlayersTabs from "../containers/roles/footballerGrid";
 import ResponsiveDrawer from "../containers/roles/rolesDrawer";
+import FootballerForm from "../containers/footballers/addFootballerForm";
+import macthesList from "../containers/match/macthesList";
+import MatchesList from "../containers/match/macthesList";
+import MatchesTable from "../containers/match/matchesTable";
+import MatchPage from "../containers/match/macthesList";
 export default class Routing extends React.Component {
     render() {
         return (
@@ -31,7 +36,10 @@ export default class Routing extends React.Component {
                     <Route exact path="/clubs" component={ClubList} />
                     <Route exact path="/roles" component={ResponsiveDrawer} />
                     <Route exact path="/results" component={FootballResultTable} />
-                    <Route exact path="/footballers" component={FootballersCardList} />
+                    <Route exact path="/matches" component={MatchPage} />
+                    <Route exact path="/footballers" component={FootballersCardList} /> 
+                    <Route exact path="/footballer-form" component={FootballerForm} />
+                    <Route exact path="/footballer-form/:personId" component={FootballerForm} />
                     <Route path="/footballers/:personId" component={FootballerDetails} />
                     <Route path="/sponsors/:clubId" component={SponsorsList} />
                     <Route path="/seasons/:clubId" component={SeasonsList} />

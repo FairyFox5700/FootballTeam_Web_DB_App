@@ -1,16 +1,20 @@
 ﻿import React, { useState, useEffect } from "react";
 import { Grid, TextField, withStyles, FormControl, InputLabel, Select, MenuItem, Button, FormHelperText } from "@material-ui/core";
 import useForm from "../../components/useForm";
-import { connect } from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import * as actions from "./footballersActions";
 import  {fetchAll} from "../roles/rolesActions"
 import { useToasts } from "react-toast-notifications";
-import DateFnsUtils from '@date-io/date-fns';
+
 import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import DateFnsUtils from "@date-io/date-fns";
+import {fetchAllWithRoles} from "./footballersActions";
+import {fetchByPlayerId} from "../clubs/footballClubsAction";
+import api from "./api";
 
 const styles = theme => ({
     root: {
@@ -29,26 +33,59 @@ const styles = theme => ({
 })
 
 const initialFieldValues = {
-    firstName:'',
-    middleName:'',
-    roleId:1,
-    dataOfBirth: '',
-    height: 180.0,
-    nationality: 'Ukrainian',
-    placeOfBirth: 'Ukraine',
-    weight: 69.0
-}
+    firstName: 'I',
+    middleName: '',
+    roleId: 1,
+    dataOfBirth: new Date('2014-08-18T21:11:54'),
+    height: '',
+    nationality: '',
+    placeOfBirth: '',
+    weight: ''
+};
 
-const FootballerForm = ({ classes, ...props }) => {
-
+const FootballerForm = ({match, classes, ...props  }) => {
+    const {
+        params: { personId },
+    } = match;
     //toast msg.
     const { addToast } = useToasts()
-   /* const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const minValue = min => value =>
+        value && value < min ? `Must be at least ${min}` : undefined
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };*/
+    const validateWeight = values => {
+        if (!values.weight) {
+            return 'Weight is required field'
+        }
+        if (values.weight < 19) {
+            return 'Weight is too small...'
+        }
+        if (values.weight > 200) {
+            return 'Weight is too high...'
+        }
+        if (!(/\d+(\.\d{1,2})?/).test(values.weight)) {
+            return "Weight is  not valid."
+        }
+        else
+            return "";
+    }
 
+    const validateHeight = values => {
+        if (!values.height) {
+            return 'Height is required field'
+        }
+        if (values.height < 100) {
+            return 'Height is too small...'
+        }
+        if (values.height > 240) {
+            return 'Height is too high...'
+        }
+        if (!(/\d+(\.\d{1,2})?/).test(values.height)) {
+            return "Height is  not valid..."
+        }
+        else
+            return "";
+    }
+        
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
         if ('firstName' in fieldValues)
@@ -58,23 +95,24 @@ const FootballerForm = ({ classes, ...props }) => {
         if ('dataOfBirth' in fieldValues)
             temp.dataOfBirth = fieldValues.dataOfBirth ? "" : "This field is required."
         if ('height' in fieldValues)
-            temp.height = fieldValues.height ? "" : "This field is required."
+            temp.height =validateHeight(fieldValues)
         if ('nationality' in fieldValues)
             temp.nationality = fieldValues.nationality ? "" : "This field is required."
         if ('placeOfBirth' in fieldValues)
             temp.placeOfBirth = fieldValues.placeOfBirth ? "" : "This field is required."
         if ('weight' in fieldValues)
-            temp.weight = fieldValues.weight? "" : "This field is required."    
+            temp.weight =validateWeight(fieldValues) 
         if ('roleId' in fieldValues)
             temp.roleId = fieldValues.roleId? "" : "This field is required."
         setErrors({
             ...temp
         })
-
+    
         if (fieldValues === values)
             return Object.values(temp).every(x => x === "")
     }
 
+    const dispatch = useDispatch();
     const {
         values,
         setValues,
@@ -82,13 +120,19 @@ const FootballerForm = ({ classes, ...props }) => {
         setErrors,
         handleInputChange,
         resetForm
-    } = useForm(initialFieldValues, validate, props.setCurrentId)
+    } = useForm(initialFieldValues, validate)//, props.setCurrentId
+    
+
+    
 
     //material-ui select
     const inputLabel = React.useRef(null);
     const [labelWidth, setLabelWidth] = React.useState(0);
-    React.useEffect(() => {
-        setLabelWidth(inputLabel.current.offsetWidth);
+    useEffect(() => {
+        console.log('personId')
+        console.log(personId)
+        props.fetchAllRoles();
+        
     }, []);
 
     const handleSubmit = e => {
@@ -98,144 +142,194 @@ const FootballerForm = ({ classes, ...props }) => {
                 resetForm()
                 addToast("Submitted successfully", { appearance: 'success' })
             }
-            if (props.currentId === 0)
-                props.createFootballer(values, onSuccess)
+            if (personId===undefined)
+                props.createFootballer(values,onSuccess)
             else
-                props.updateFootballer(props.currentId, values, onSuccess)
+                props.updateFootballer(personId, values,onSuccess)
         }
     }
+  
+    const clubDetails = useSelector((state) => state.footballers);
+    const { footballer , loading, error } = clubDetails;
 
-    useEffect(() => {
-        if (props.currentId != 0) {
-            setValues({
-                ...props.footballers.find(x => x.personId == props.currentId)
-            })
-            setErrors({})
+
+    useEffect( () => {
+        if (!(personId===undefined) ) {
+            try {
+                  dispatch(actions.fetchById(personId))
+                console.log("adsasdasdasdasda")
+                console.log(footballer )
+              
+
+                return () => {
+                };
+       
+            } catch (err) {
+                console.log(err.message)
+            }
         }
-    }, [props.currentId])
+    }, [personId])
+    
+    
+    const handleDateChange = (date) => {
+        const fieldValue = { ['dataOfBirth']: date }
 
+        setValues({
+            ...values,
+            ...fieldValue
+        })
+    };
+    
+    useEffect(()=>{
+        if(!loading){
+            setValues(footballer)
+        }
+    },[loading])
     return (
-        <form autoComplete="off" noValidate className={classes.root} onSubmit={handleSubmit}>
-            <Grid container>
-                <Grid item xs={6}>
-                    <TextField
-                        name="FirstName"
-                        variant="outlined"
-                        label="First Name"
-                        value={values.fullName}
-                        onChange={handleInputChange}
-                        {...(errors.firstName && { error: true, helperText: errors.firstName })}
-                    />
-                    <TextField
-                        name="MiddleName"
-                        variant="outlined"
-                        label="Middle Name"
-                        value={values.middleName}
-                        onChange={handleInputChange}
-                        {...(errors.middleName && { error: true, helperText: errors.middleName })}
-                    />
-                    <TextField
-                        name="nationality"
-                        variant="outlined"
-                        label="nationality"
-                        value={values.nationality}
-                        onChange={handleInputChange}
-                        {...(errors.nationality && { error: true, helperText: errors.nationality})}
-                    />
-                    <TextField
-                        name="placeOfBirth"
-                        variant="outlined"
-                        label="Place Of Birth"
-                        value={values.placeOfBirth}
-                        onChange={handleInputChange}
-                        {...(errors.placeOfBirth && { error: true, helperText: errors.placeOfBirth})}
-                    />
-                    
-                    <FormControl variant="outlined"
-                                 className={classes.formControl}
-                                 {...(errors.roleId && { error: true })}
-                    >
-                        <InputLabel ref={inputLabel}>Role in comand</InputLabel>
 
-                        <Select
-                            name="roleId"
-                            value={values.roleId}
-                            onChange={handleInputChange}
-                            labelWidth={labelWidth}
-                        >
-                            <MenuItem value="">Select Blood Group</MenuItem>
-                            {props.roles.map((r,index)=>
-                                <MenuItem value={r.roleId} >{r.roleName}</MenuItem>
-                            )}
-                        </Select>
-                        {errors.roleId && <FormHelperText>{errors.roleId}</FormHelperText>}
-                    </FormControl>
-                </Grid>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Grid item xs={6}>
-                    <KeyboardDatePicker
-                        margin="normal"
-                        id="date-picker-dialog"
-                        name="dataOfBirth"
-                        label="Data Of Birth"
-                        format="MM/dd/yyyy"
-                        value={values.dataOfBirth}
-                        onChange={handleInputChange}
-                        {...(errors.dataOfBirth && { error: true, helperText: errors.dataOfBirth })}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                        }}
-                    />
-                    <TextField
-                        name="height"
-                        variant="outlined"
-                        label="height"
-                        value={values.height}
-                        onChange={handleInputChange}
-                        {...(errors.height && { error: true, helperText: errors.dataOfBirth })}
-                    />
-                    <TextField
-                        name="weight"
-                        variant="outlined"
-                        label="weight"
-                        value={values.weight}
-                        onChange={handleInputChange}
-                        {...(errors.weight && { error: true, helperText: errors.weight})}
-                    />
-                    
-                    <div>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            className={classes.smMargin}
-                        >
-                            Submit
-                        </Button>
-                        <Button
-                            variant="contained"
-                            className={classes.smMargin}
-                            onClick={resetForm}
-                        >
-                            Reset
-                        </Button>
-                    </div>
-                </Grid>
-                </MuiPickersUtilsProvider>
-            </Grid>
-        </form>
+
+                    <form autoComplete="off" noValidate className={classes.root} onSubmit={handleSubmit}>
+                        {props.rolesIsLoading ?
+                            (<div>Loading...</div>) : (
+                
+                                <Grid container
+                                      spacing={0}
+                                      direction="column"
+                                      alignItems="center"
+                                      justify="center"
+                                      style={{minHeight: '100vh'}}>
+                                    <Grid item xs={6}>
+                                        <TextField
+                                            name="firstName"
+                                            variant="outlined"
+                                            label="First Name"
+                                            value={values.firstName}
+                                            onChange={handleInputChange}
+                                            {...(errors.firstName && {error: true, helperText: errors.firstName})}
+                                           
+                                        />
+                                        <TextField
+                                            name="middleName"
+                                            variant="outlined"
+                                            label="Middle Name"
+                                            value={values.middleName}
+                                            onChange={handleInputChange}
+                                            {...(errors.middleName && {error: true, helperText: errors.middleName})}
+                                        />
+                                        <TextField
+                                            name="nationality"
+                                            variant="outlined"
+                                            label="Nationality"
+                                            value={values.nationality}
+                                            onChange={handleInputChange}
+                                            {...(errors.nationality && {error: true, helperText: errors.nationality})}
+                                        />
+                                        <TextField
+                                            name="placeOfBirth"
+                                            variant="outlined"
+                                            label="Place Of Birth"
+                                            value={values.placeOfBirth}
+                                            onChange={handleInputChange}
+                                            {...(errors.placeOfBirth && {error: true, helperText: errors.placeOfBirth})}
+                                        />
+
+                                        <FormControl variant="outlined"
+                                                     className={classes.formControl}
+                                                     {...(errors.roleId && {error: true})}
+                                        >
+                                            <InputLabel ref={inputLabel}>Role in comand</InputLabel>
+
+                                            <Select
+                                                name="roleId"
+                                                value={values.roleId}
+                                                onChange={handleInputChange}
+                                                labelWidth={labelWidth}
+                                            >
+                                                {props.roles.map((r, index) =>
+                                                    <MenuItem value={r.roleId} key={r.roleId}>{r.roleName}</MenuItem>
+                                                )}
+                                            </Select>
+                                            {errors.roleId && <FormHelperText>{errors.roleId}</FormHelperText>}
+                                        </FormControl>
+
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                          
+                                            <KeyboardDatePicker
+                                                margin="normal"
+                                                id="date-picker-dialog"
+                                                label="Date picker dialog"
+                                                format="MM/dd/yyyy"
+                                                name="dataOfBirth"
+                                                value={values.dataOfBirth}
+                                                onChange={handleDateChange}
+                                                KeyboardButtonProps={{
+                                                    'aria-label': 'change date',
+                                                }}
+                                            />
+                                           
+
+                                            <TextField
+                                                name="height"
+                                                variant="outlined"
+                                                type='number'
+                                                label="height"
+                                                value={values.height}
+                                                onChange={handleInputChange}
+                                                {...(errors.height && {error: true, helperText: errors.height})}
+                                            />
+                                            <TextField
+                                                name="weight"
+                                                variant="outlined"
+                                                label="weight"
+                                                type='number'
+                                                value={values.weight}
+                                                onChange={handleInputChange}
+                                                {...(errors.weight && {error: true, helperText: errors.weight})}
+                                            />
+
+                                            <div>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    type="submit"
+                                                    className={classes.smMargin}
+                                                >
+                                                    Submit
+                                                </Button>
+                                                <Button
+                                                    variant="contained"
+                                                    className={classes.smMargin}
+                                                    onClick={resetForm}
+                                                >
+                                                    Reset
+                                                </Button>
+                                            </div>
+
+                                        </MuiPickersUtilsProvider>
+                                    </Grid>
+                                </Grid>
+                            )
+                        }
+                    </form>
     );
-}
+       
+    }
 
 
 const mapStateToProps = state => ({
     roles: state.roles.roles,
-    footballers:state.footballers.footballers
+    footballers:state.footballers.footballers,
+    rolesIsLoading: state.roles.loading,
+    rolesError:state.roles.error,
+    footballer: state.footballers.footballer
 })
 
 const mapActionToProps = {
     createFootballer: actions.addFootballer,
-    updateFootballer: actions.updateFootballer
+    updateFootballer: actions.updateFootballer,
+    deleteFootballer:actions.deleteFootballer,
+    fetchAllRoles: fetchAll,
+    getFootballerById: actions.fetchById
 }
 
-export default connect(mapStateToProps, mapActionToProps)(withStyles(styles)(DCandidateForm));
+export default connect(mapStateToProps, mapActionToProps)(withStyles(styles)(FootballerForm));

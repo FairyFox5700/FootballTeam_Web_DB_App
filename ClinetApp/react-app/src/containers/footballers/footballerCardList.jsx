@@ -1,10 +1,15 @@
 ﻿import React, {useEffect, useState} from "react";
 import {Grid, makeStyles, withStyles} from "@material-ui/core";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import CollectionItem from "./footballerCollectionCardItem";
 import {bindActionCreators} from "redux";
 import {fetchAllWithRoles} from "./footballersActions";
 import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+import * as actions from "./footballersActions";
+import {useToasts} from "react-toast-notifications";
+
 
 const styles= () => ({
     root: {
@@ -32,15 +37,26 @@ const styles= () => ({
 class  FootballersCardList extends React.Component {
     constructor(props) {
         super(props);
+        this.deleteFootballer = this.deleteFootballer.bind(this);
     }
     componentDidMount() {
         if(this.props.footballersList.length===0){
             this.props.fetchAll()
         }
+       
     }
 
+    deleteFootballer(id) {
+        
+        if (window.confirm('Are you sure to delete this footballer?')) {
+            this.props.deleteFootballer(id, () => {})
+            this.props.fetchAll()
+        }
+
+    }
     render()
     {
+
         const {classes} = this.props;
         const { error, loading, footballersList } = this.props;
         if (error) {
@@ -55,9 +71,13 @@ class  FootballersCardList extends React.Component {
                 <h2 className={classes.title}>{this.props.roleName}</h2>
                     <div  className= {classes.items}>
                         {
-                            this.props.footballersList.map((item, index) => <CollectionItem key={index} item={item}/>)
+                            this.props.footballersList.map((item, index) => <CollectionItem key={index} handler = {this.deleteFootballer} item={item}/>)
                         }
+                        <Button variant="contained" href={`/footballer-form`}  color="secondary">
+                            Add footballer
+                        </Button>
                     </div>
+                
             </Container>
         );
     }
@@ -74,6 +94,7 @@ const mapStateToProps = state => {
 const  mapDispatchToProp = (dispatch) => {
     return {
         fetchAll :  bindActionCreators(fetchAllWithRoles, dispatch),
+        deleteFootballer: bindActionCreators(actions.deleteFootballer, dispatch)
     }
 }
 

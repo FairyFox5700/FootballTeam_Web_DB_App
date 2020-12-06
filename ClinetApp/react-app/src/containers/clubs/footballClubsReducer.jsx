@@ -26,7 +26,7 @@ export const clubs =(state = INITIAL_STATE, action)=> {
                 club: action.payload
             }
         case FETCH_FOOTBALL_CLUB_LIST_REQUEST:
-        case FOOTBALL_CLUB_DETAIL_REQUEST:
+        case FOOTBALL_CLUB_DETAIL_REQUEST :
         case FOOTBALL_CLUB_BY_PLAYER_LIST_REQUEST:
             return { loading: true };
         case  FOOTBALL_CLUB_BY_PLAYER_LIST_SUCCESS:
