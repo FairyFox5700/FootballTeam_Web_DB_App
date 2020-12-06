@@ -1,0 +1,31 @@
+﻿
+     --fotballers
+     get_all_footballers_with_roles
+     get_all_footballers_with_role_name(roleName text)
+     get_all_footballers_by_name_surname_nationality(_footballerName text default '',_surname  text default '',  _nationality text default '')
+     get_all_footballers_order_by_parameter(_orderbyKey text, _order_asc_desc text = 'ASC')
+     --roles
+    count_footballers_by_role_name
+    --fotball_clubs
+    get_all_footballers_clubs_with_logos()
+    get_footballers_club_by_id_with_details(clubId integer)
+    get_all_football_clubs_by_player_id(playerId integer)
+    --coaches
+    get_coach_by_id_with_club(coachId integer)
+    --sponsores
+    get_all_sponsores_by_club_id(clubId integer)
+    get_sponore_by_id(sponsoreId integer)
+    --SEASONES
+    get_all_seasones_by_club_id(clubId integer)
+    --trainings
+    get_all_trainings_by_coach_id(coachId integer)
+    get_training_by_training_Id_with_detailes(trainingId integer)
+    --stadiums
+    get_stadium_by_stadium_Id_with_address(stadiumId integer)
+    --MATCHES
+    get_all_matches_with_stadiums()
+    get_matches_by_match_id_with_details(matchId integer)
+    get_next_matches()
+    --FOOTBALL RESULTS
+    get_football_results_by_match_id(matchId integer)
+    get_all_football_results_by_player_id_order_by(playerId integer, orderBy text default 'scored_goales' )

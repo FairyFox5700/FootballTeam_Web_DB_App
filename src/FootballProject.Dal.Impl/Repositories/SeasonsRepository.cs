@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Dapper;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace FootballProject.Dal.Impl.Repositories
 {
@@ -20,21 +22,25 @@ namespace FootballProject.Dal.Impl.Repositories
    
         public async Task<IEnumerable<Season>> GetSeasonesByClubsId(int clubId)
         {
-            var sql= @"EXEC public.get_all_seasones_by_club_id @clubId = @ClubId";
-            await using var connection = new SqlConnection(_connectionString);
+            var sql= "get_all_seasones_by_club_id";
+            await using var connection =  new NpgsqlConnection(_connectionString);
             connection.Open();
-            var result = await connection.QueryAsync<Season>(sql, new {ClubId = clubId });
+            var result = await connection.QueryAsync<Season>(sql, 
+                new {сlubid = clubId },
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900);
             return result;
         }
 
         public async Task<Season> GetSeasonById(int id)
         {
-            var sql = "SELECT season_id, league_name " +
-                      "FROM public.seasones s " +
-                      "WHERE SeasonId= @id;";
-            await using var connection = new SqlConnection(_connectionString);
+            var sql = @"SELECT s.season_id, s.league_name
+                      FROM public.seasones s
+                      WHERE season_id= @id";
+            await using var connection =  new NpgsqlConnection(_connectionString);
             connection.Open();
-            var result = await connection.QueryAsync<Season>(sql, new { Id = id });
+            var result = await connection.QueryAsync<Season>(sql, 
+                new { id = id });
             return result.FirstOrDefault();
         }
     }

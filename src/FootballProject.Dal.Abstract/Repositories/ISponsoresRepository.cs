@@ -6,7 +6,7 @@ namespace FootballProject.Dal.Abstract.Repositories
 {
     public interface ISponsoresRepository<in TKey> where TKey: struct
     {
-        Task<IEnumerable<Sponsor>> GetSponsoresById(TKey sponsorId);
+        Task<IEnumerable<Sponsor>>  GetSponsoresByClubId(TKey clubId);
         Task<Sponsor> GetSponsorById(TKey sponsorId);
     }
 }

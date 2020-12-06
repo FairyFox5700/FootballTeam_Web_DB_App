@@ -6,6 +6,95 @@
 
     <ItemGroup>
       <PackageReference Include="dbup" Version="4.4.0" />
+      <PackageReference Include="dbup-postgresql" Version="4.5.0" />
+      <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.10" />
+      <PackageReference Include="React.AspNet" Version="5.2.11" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+      <PackageReference Include="VMD.RESTApiResponseWrapper.Core" Version="2.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FootballProject.Dal.Impl\FootballProject.Dal.Impl.csproj" />
+      <ProjectReference Include="..\FootballProject.Web.Controllers\FootballProject.Web.Controllers.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Scripts\insert_football_clubs_seasones.sql" />
+      <EmbeddedResource Include="Scripts\insert_football_clubs_seasones.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\create_tables_and_contraints.sql" />
+      <EmbeddedResource Include="Scripts\create_tables_and_contraints.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_cards.sql" />
+      <EmbeddedResource Include="Scripts\insert_cards.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_coaches.sql" />
+      <EmbeddedResource Include="Scripts\insert_coaches.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_footballer_clubs.sql" />
+      <EmbeddedResource Include="Scripts\insert_footballer_clubs.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_footballer_clubs_sponsores.sql" />
+      <EmbeddedResource Include="Scripts\insert_footballer_clubs_sponsores.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_footballer_results.sql" />
+      <EmbeddedResource Include="Scripts\insert_footballer_results.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_footballers.sql" />
+      <EmbeddedResource Include="Scripts\insert_footballers.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_footballers_clubs.sql" />
+      <EmbeddedResource Include="Scripts\insert_footballers_clubs.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_logos.sql" />
+      <EmbeddedResource Include="Scripts\insert_logos.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_matches.sql" />
+      <EmbeddedResource Include="Scripts\insert_matches.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_roles.sql" />
+      <EmbeddedResource Include="Scripts\insert_roles.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_scores.sql" />
+      <EmbeddedResource Include="Scripts\insert_scores.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_seasones.sql" />
+      <EmbeddedResource Include="Scripts\insert_seasones.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_sponsores.sql" />
+      <EmbeddedResource Include="Scripts\insert_sponsores.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_stadiums.sql" />
+      <EmbeddedResource Include="Scripts\insert_stadiums.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insert_trainings.sql" />
+      <EmbeddedResource Include="Scripts\insert_trainings.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\insertaddresses.sql" />
+      <EmbeddedResource Include="Scripts\insertaddresses.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Scripts\stored_procedurs.sql" />
+      <EmbeddedResource Include="Scripts\stored_procedurs.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
 

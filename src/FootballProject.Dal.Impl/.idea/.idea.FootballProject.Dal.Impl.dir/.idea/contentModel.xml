@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Admin\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Admin\AppData\Local\JetBrains\Rider2020.1\resharper-host\Local\Transient\ReSharperHost\v201\SolutionCaches\_.19.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Admin\AppData\Roaming\JetBrains\Rider2020.1\consoles\db" t="IncludeRecursive" />
+    <e p="C:\Users\Admin\AppData\Roaming\JetBrains\Rider2020.1\extensions" t="IncludeRecursive" />
+    <e p="D:\Предмети\Курс_3\БД\Курсач\FootballProject\FootballProject\src\FootballProject.Dal.Impl" t="IncludeRecursive">
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="DalDependencyInjector.cs" t="Include" />
+      <e p="FootballProject.Dal.Impl.csproj" t="IncludeRecursive" />
+      <e p="obj" t="ExcludeRecursive">
+        <e p="Debug" t="Include">
+          <e p="netcoreapp3.1" t="Include">
+            <e p="FootballProject.Dal.Impl.AssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Repositories" t="Include">
+        <e p="CoachRepository.cs" t="Include" />
+        <e p="FootballClubRepository.cs" t="Include" />
+        <e p="FootballerRepository.cs" t="Include" />
+        <e p="FootballerResultsRepository.cs" t="Include" />
+        <e p="MachRepository.cs" t="Include" />
+        <e p="RoleRepository.cs" t="Include" />
+        <e p="SeasonsRepository.cs" t="Include" />
+        <e p="SponsoresRepository.cs" t="Include" />
+        <e p="StadiumsRepository.cs" t="Include" />
+        <e p="TrainingRepository.cs" t="Include" />
+      </e>
+    </e>
+  </component>
+</project>

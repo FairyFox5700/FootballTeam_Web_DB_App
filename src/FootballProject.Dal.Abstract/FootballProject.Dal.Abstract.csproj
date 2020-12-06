@@ -6,7 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FootballProject.Entities\FootballProject.Entities.csproj" />
-      <ProjectReference Include="..\src\FootballProject.Entities\FootballProject.Entities.csproj" />
+      <ProjectReference Include="..\FootballProject.Models\FootballProject.Models.csproj" />
     </ItemGroup>
 
 </Project>

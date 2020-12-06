@@ -18,6 +18,7 @@ namespace FootballProject.Entities
 
         public Address Address { get; set; }
         public ICollection<Match> Matches { get; set; }
-        public ICollection<Training> Trainings { get; set; }
+
+     
     }
 }

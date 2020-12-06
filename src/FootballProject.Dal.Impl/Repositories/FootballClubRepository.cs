@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using FootballProject.Dal.Abstract.Repositories;
 using FootballProject.Entities;
+using FootballProject.Models.Responses;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace FootballProject.Dal.Impl.Repositories
 {
@@ -19,39 +23,39 @@ namespace FootballProject.Dal.Impl.Repositories
 
         public async Task<IEnumerable<FootballClub>> GetFootballClubsWithLogos()
         {
-            var query = @"EXEC public.get_all_footballers_clubs_with_logos";
-            await using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
+            var query = "get_all_footballers_clubs_with_logos";
             var footballClubsDictionary = new Dictionary<int, FootballClub>();
-            return await connection.QueryAsync<FootballClub, Logo, FootballClub>(
-                query,
+            await using var connection = new NpgsqlConnection(_connectionString);
+            await connection.OpenAsync();
+            var result = await connection.QueryAsync<FootballClub,Logo, FootballClub>(
+                query ,
                 map: (fc, l) =>
                 {
-                    FootballClub footballClub;
-                    if (!footballClubsDictionary.TryGetValue(fc.FootballClubId, out footballClub))
-                    {
-                        footballClub = fc;
-                        fc.Logos = new List<Logo>();
-                        footballClubsDictionary.Add(fc.FootballClubId, footballClub);
-                    }
-
-                    footballClub.Logos.Add(l);
-                    return footballClub;
-                },
-                splitOn: "FootballClubId"
-            );
+                FootballClub footballClub;
+                if (!footballClubsDictionary.TryGetValue(fc.FootballClubId, out footballClub))
+                {
+                    footballClub = fc;
+                    fc.Logos = new List<Logo>();
+                    footballClubsDictionary.Add(fc.FootballClubId, footballClub);
+                }
+                footballClub.Logos.Add(l);
+                return footballClub;
+            },
+                splitOn:"logo_id",
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900);
+            return result
+                .Distinct();;
         }
 
-  
-        //TODO return coach name
-        public async Task<IEnumerable<FootballClub>> GetFootballClubsById(int clubId)
+        public async Task<FootballClub> GetFootballClubsById(int clubId)
         {
-            var query = @"EXEC public.get_footballers_club_by_id_with_details @clubId = @ClubId";
+            var query = "get_footballers_club_by_id_with_details";
             var footballClubsDictionary = new Dictionary<int, FootballClub>();
 
-            await using var connection = new SqlConnection(_connectionString);
+            await using var connection =  new NpgsqlConnection(_connectionString);
                 connection.Open();
-                return await connection.QueryAsync<FootballClub, Logo, FootballClub>(
+                var result =  await connection.QueryAsync<FootballClub, Logo, FootballClub>(
                     query,
                     map: (fc, l) =>
                     {
@@ -68,23 +72,28 @@ namespace FootballProject.Dal.Impl.Repositories
                     },
                     param: new
                     {
-                        ClubId = clubId
+                        clubid = clubId
                     },
-                    splitOn: "FootballClubId"
-                );
+                    splitOn:"logo_id",
+                    commandType:CommandType.StoredProcedure,
+                    commandTimeout:900);
+                return result.Distinct().FirstOrDefault();
         }
 
         public async Task<IEnumerable<FootballClub>> GetFootballClubsByPlayerId(int playerId)
         {
-            var query = @"EXEC public.get_all_football_clubs_by_player_id @playerId= @PlayerId";
-            await using var connection = new SqlConnection(_connectionString);
+            var query = @"get_all_football_clubs_by_player_id";
+            await using var connection =  new NpgsqlConnection(_connectionString);
             connection.Open();
             return await connection.QueryAsync<FootballClub>(
                 query,
                 param: new
                 {
-                    PlayerId = playerId
-                });
+                    playerid = playerId
+                },
+                commandType:CommandType.StoredProcedure,
+                commandTimeout:900
+                );
         }
     }
 }
