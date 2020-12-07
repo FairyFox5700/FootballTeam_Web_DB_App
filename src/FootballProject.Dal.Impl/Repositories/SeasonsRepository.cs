@@ -17,7 +17,7 @@ namespace FootballProject.Dal.Impl.Repositories
 
         public SeasonsRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _connectionString = configuration.GetConnectionString();
         }
    
         public async Task<IEnumerable<Season>> GetSeasonesByClubsId(int clubId)

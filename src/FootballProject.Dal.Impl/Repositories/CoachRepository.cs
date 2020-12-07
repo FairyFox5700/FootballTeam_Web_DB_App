@@ -23,7 +23,7 @@ namespace FootballProject.Dal.Impl.Repositories
         public CoachRepository(IConfiguration configuration, ILogger<CoachRepository>logger)
         {
             _logger = logger;
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _connectionString = configuration.GetConnectionString();
         }
         public  async Task<IEnumerable<Coach>> GetCoachesWithClubsById(int coachId)
         {

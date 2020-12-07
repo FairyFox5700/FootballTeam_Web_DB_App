@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 
-namespace FootballProject.Web
+namespace FootballProject.Dal.Impl
 {
     public static class ConfigurationExtensions
     {

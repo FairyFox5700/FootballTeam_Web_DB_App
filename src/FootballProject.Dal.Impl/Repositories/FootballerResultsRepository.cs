@@ -18,7 +18,7 @@ namespace FootballProject.Dal.Impl.Repositories
 
         public FootballerResultsRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _connectionString = configuration.GetConnectionString();
         }
         //one to one not binding
 

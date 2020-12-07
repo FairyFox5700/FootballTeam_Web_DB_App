@@ -19,7 +19,7 @@ namespace FootballProject.Dal.Impl.Repositories
 
         public RoleRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _connectionString = configuration.GetConnectionString();
         }
 
         public async Task<IEnumerable<FootballerByRoleCountModel>> GetFootballersCountByRoleName(string roleName)

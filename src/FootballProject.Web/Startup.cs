@@ -41,7 +41,7 @@ namespace FootballProject.Web
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             DalDependencyInjector.Install(services);
                 //TODO add scripts to run migrations
-               EnsureDatabase.For.PostgresqlDatabase(connectionString);
+               /*EnsureDatabase.For.PostgresqlDatabase(connectionString);
                 var upgrader = DeployChanges.To
                     .PostgresqlDatabase(connectionString, null)
                     .WithScriptsEmbeddedInAssembly(
@@ -54,7 +54,7 @@ namespace FootballProject.Web
                 if (upgrader.IsUpgradeRequired())
                 {
                     upgrader.PerformUpgrade();
-                }
+                }*/
                 
         }
 
