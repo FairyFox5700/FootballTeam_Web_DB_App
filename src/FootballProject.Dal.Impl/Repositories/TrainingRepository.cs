@@ -17,7 +17,7 @@ namespace FootballProject.Dal.Impl.Repositories
 
         public TrainingRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _connectionString = configuration.GetConnectionString();
         }
    
         public async Task<IEnumerable<Training>> GetAllTrainingByCoachId(int coachId)

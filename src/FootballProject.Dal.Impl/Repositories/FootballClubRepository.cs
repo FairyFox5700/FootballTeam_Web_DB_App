@@ -18,7 +18,7 @@ namespace FootballProject.Dal.Impl.Repositories
 
         public FootballClubRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _connectionString = configuration.GetConnectionString();
         }
 
         public async Task<IEnumerable<FootballClub>> GetFootballClubsWithLogos()

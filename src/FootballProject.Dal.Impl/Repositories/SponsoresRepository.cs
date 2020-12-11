@@ -17,7 +17,7 @@ namespace FootballProject.Dal.Impl.Repositories
 
         public SponsoresRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _connectionString = configuration.GetConnectionString();
         }
         public async Task<IEnumerable<Sponsor>> GetSponsoresByClubId(int clubId)
         {

@@ -1,4 +1,6 @@
-﻿﻿import React, {  useEffect } from "react";
+﻿import moment from "moment";
+
+﻿import React, {  useEffect } from "react";
 import * as actions from "../footballers/footballersActions";
 import {connect, useDispatch, useSelector} from "react-redux";
 import {withStyles} from "@material-ui/core";
@@ -117,7 +119,7 @@ const FootballerDetails = ({match, classes,...props  }) => {
                                         <p className={classes.property}><span
                                             className={classes.nestedProp}>Nationality:</span>{footballer.nationality}</p>
                                         <p className={classes.property}><span
-                                            className={classes.nestedProp}>Data of birth:</span> {footballer.dataOfBirth}</p>
+                                            className={classes.nestedProp}>Data of birth:</span> {moment(footballer.dataOfBirth).format("DD/MM/YYYY")}</p>
                                         <p className={classes.property}><span
                                             className={classes.nestedProp}>Height:</span>{footballer.height}</p>
                                         <p className={classes.property}><span

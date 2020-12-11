@@ -16,7 +16,7 @@ namespace FootballProject.Dal.Impl.Repositories
 
         public StadiumsRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _connectionString = configuration.GetConnectionString();
         }
    
         public async Task<Stadium> GetStadiumByIdWithAddresses(int stadiumId)
