@@ -48,8 +48,7 @@ namespace FootballProject.Web
                 builder =>
                     builder.AllowAnyOrigin()
                         .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials()))//WithOrigins(Configuration["Frontend"])
+                        .AllowAnyMethod()))//WithOrigins(Configuration["Frontend"])
                 ;
             //uncomment this to run all migration to your local database
             //ensure that connection string is set properly
