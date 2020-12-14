@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -40,7 +41,19 @@ namespace FootballProject.Web
             });
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             DalDependencyInjector.Install(services);
-                //TODO add scripts to run migrations
+            Debug.WriteLine(Configuration["Frontend"]);
+            Console.WriteLine(Configuration["Frontend"]);
+            services.AddCors(cors=>
+                cors.AddPolicy("PolicyCors",
+                builder =>
+                    builder.WithOrigins(Configuration["Frontend"])
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()))
+                ;
+            //uncomment this to run all migration to your local database
+            //ensure that connection string is set properly
+            
                /*EnsureDatabase.For.PostgresqlDatabase(connectionString);
                 var upgrader = DeployChanges.To
                     .PostgresqlDatabase(connectionString, null)
@@ -70,13 +83,8 @@ namespace FootballProject.Web
           
             app.UseRouting();
            // app.UseApiResponseAndExceptionWrapper();
-            app.UseAuthorization();            
-            app.UseCors(options => 
-                    options
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials()
-                    .WithOrigins(Configuration["Frontend"]));
+            app.UseAuthorization();   
+            app.UseCors("PolicyCors");
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
