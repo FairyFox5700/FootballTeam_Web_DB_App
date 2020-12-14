@@ -46,10 +46,10 @@ namespace FootballProject.Web
             services.AddCors(cors=>
                 cors.AddPolicy("PolicyCors",
                 builder =>
-                    builder.WithOrigins(Configuration["Frontend"])
+                    builder.AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowCredentials()))
+                        .AllowCredentials()))//WithOrigins(Configuration["Frontend"])
                 ;
             //uncomment this to run all migration to your local database
             //ensure that connection string is set properly
